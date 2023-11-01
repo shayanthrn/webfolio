@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %} 
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Education</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+</head>
+<body class="hold-transition sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+  <!-- Navbar -->
+ 
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__wobble" src="{% static 'dist/img/Webfolio.png' %}" alt="Webfoliologo" height="60" width="60">
+  </div>
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-dark">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="#" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="#" class="nav-link">Contact</a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">     
+      <!-- Notifications Dropdown Menu -->
+      <li class="nav-item">
+        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+          <i class="fas fa-expand-arrows-alt"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+          <i class="fas fa-th-large"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="dashboard.html" class="brand-link">
+      <img src="{% static 'dist/img/Webfolio.png' %}" alt="Webfolio Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">Webfolio</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+    
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item">
+            <a href="dashboard.html" class="nav-link ">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+        
+          <li class="nav-item">
+            <a href="information.html" class="nav-link ">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Information
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="education.html" class="nav-link active">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Education
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="WorkExperience.html" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Work Experience
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="portfolio.html" class="nav-link ">
+              <i class="nav-icon far fa-image"></i>
+              <p>
+                Portfolio
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa-plus-square"></i>
+              <p>
+                Export
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-search"></i>
+              <p>
+                Feedback
+              </p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Education</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Education</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title mt-2">Education</h3>
+
+          <div class="card-tools">
+            <a href="add-education.html" type="button" class="btn btn-success">
+              <i class="fas fa-plus mr-1"></i>
+              Add
+            </a>
+            <a type="button" class="btn btn-primary">
+              <i class="fas fa-plus mr-1"></i>
+              import from linkedin
+            </a>
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <table class="table table-striped projects">
+              <thead>
+                  <tr>
+                      <th style="width: 1%"  >
+                          #
+                      </th>
+                      <th style="width: 20%" >
+                          School Name
+                      </th>
+                      <th style="width: 20%" >
+                        Degree
+                      </th>
+                      <th style="width: 20%" >
+                          Field of study
+                      </th>
+                      <th style="width: 39%" class="text-right">
+                      </th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>
+                          1
+                      </td>
+                      <td>
+                          Concordia
+                      </td>
+                      <td >
+                        Master
+                      </td>
+                      <td>
+                          Software Engineering
+                      </td>
+                      
+                      <td class="project-actions text-right">
+                          <a class="btn btn-info btn-sm" href="add-education.html">
+                              <i class="fas fa-pencil-alt mr-1">
+                              </i>
+                              Edit
+                          </a>
+                          <a class="btn btn-danger btn-sm" href="#">
+                              <i class="fas fa-trash mr-1">
+                              </i>
+                              Delete
+                          </a>
+                      </td>
+                  </tr>
+                
+                  <tr>
+                    <td>
+                        2
+                    </td>
+                    <td>
+                        Concordia
+                    </td>
+                    <td>
+                      Bachelor
+                    </td>
+                    <td>
+                        Software Engineering
+                    </td>
+                    
+                    <td class="project-actions text-right">
+                        <a class="btn btn-info btn-sm" href="add-education.html">
+                            <i class="fas fa-pencil-alt mr-1">
+                            </i>
+                            Edit
+                        </a>
+                        <a class="btn btn-danger btn-sm" href="#">
+                            <i class="fas fa-trash mr-1">
+                            </i>
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        3
+                    </td>
+                    <td>
+                        Concordia
+                    </td>
+                    <td>
+                      Diploma
+                    </td>
+                    <td>
+                        Mathematic
+                    </td>
+                    
+                    <td class="project-actions text-right">
+                        <a class="btn btn-info btn-sm" href="add-education.html">
+                            <i class="fas fa-pencil-alt mr-1">
+                            </i>
+                            Edit
+                        </a>
+                        <a class="btn btn-danger btn-sm" href="#">
+                            <i class="fas fa-trash mr-1">
+                            </i>
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <strong>Group 12 &copy; 2023 <a>Webfolio</a></strong>
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 1.1
+    </div>
+  </footer>
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'dist/js/adminlte.min.js' %}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{% static 'dist/js/demo.js' %}"></script>
+</body>
+</html>
