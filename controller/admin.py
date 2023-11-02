@@ -3,6 +3,7 @@ from .models import *
 # Register your models here.
 
 
+admin.site.register(User)
 
 class LoginArea(admin.AdminSite):
     site_header = 'Login'
