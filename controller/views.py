@@ -18,21 +18,28 @@ class dashboard(View):
         if request.user.is_authenticated:
             linkedin_info = request.user.linkedin_info
             print(linkedin_info==None)
-            return render(request, 'controller/portfolio.html',context={})
+            return render(request, 'controller/dashboard.html',context={})
         else:
             redirect("login")
 
 class information(View):
     def get(self,request):
         if request.user.is_authenticated:
-            return render(request, 'controller/add-WorkExperience.html')
+            return render(request, 'controller/information.html')
         else:
             redirect("login")
 
 class education(View):
     def get(self,request):
         if request.user.is_authenticated:
-            return render(request, 'controller/portfolio.html')
+            return render(request, 'controller/education.html')
+        else:
+            redirect("login")
+
+class addeducation(View):
+    def get(self,request):
+        if request.user.is_authenticated:
+            return render(request, 'controller/add-education.html')
         else:
             redirect("login")
 

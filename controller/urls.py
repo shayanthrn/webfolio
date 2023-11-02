@@ -4,12 +4,14 @@ from .views import *
 
 
 urlpatterns = [
+    path('',dashboard.as_view(),name="dashboard"),
     path('login/',Login_site.urls,name="login"),
     path('dashboard/',dashboard.as_view()),
     path('information/',information.as_view()),
     path('education/',education.as_view()),
+    path('education/add/',addeducation.as_view()),
     path('work/',work.as_view()),
-    path('addwork/',addwork.as_view()),
+    path('work/add/',addwork.as_view()),
     path('portfolio/',portfolio.as_view()),
     path('portfolio/add/',addportfolio.as_view()),
     path('export/',export.as_view()),
