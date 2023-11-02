@@ -3,16 +3,8 @@ import requests
 from django.shortcuts import redirect, render
 from django.views import View
 import json
+from .models import User
 
-# api_endpoint = 'https://nubela.co/proxycurl/api/v2/linkedin'
-        # linkedin_profile_url = request.GET['linkedinurl']
-        # api_key = 'EAqVB3VefS4ds2viuLPFzg'
-        # headers = {'Authorization': 'Bearer ' + api_key}
-
-        # response = requests.get(api_endpoint,
-        #                 params={'url': linkedin_profile_url,'skills': 'include'},
-        #                 headers=headers)
-        # print(response.json())
 
 class dashboard(View):
     def get(self,request):
@@ -25,6 +17,26 @@ class dashboard(View):
             return render(request, 'controller/dashboard.html',context=context)
         else:
             redirect("login")
+    
+
+
+class importv(View):
+    def get(self,request):
+            if request.user.is_authenticated:
+                linkedin_url = request.user.linkedin_url
+                api_endpoint = 'https://nubela.co/proxycurl/api/v2/linkedin'
+                api_key = 'UMNaQcpE5z6oU-Tp9OgmbQ'
+                headers = {'Authorization': 'Bearer ' + api_key}
+                response = requests.get(api_endpoint,
+                            params={'url': linkedin_url,'skills': 'include'},
+                            headers=headers)
+                # a = response.text.replace("\"", ";")
+                # b = a.replace("\'","\"")
+                # c = b.replace(";","\'")
+                User.objects.filter(username=request.user.username).update(linkedin_info=response.text)
+                return render(request, 'controller/dashboard.html',context={"imported":"1"})
+            else:
+                redirect("login")
 
 class information(View):
     def get(self,request):
@@ -60,7 +72,6 @@ class work(View):
                 context={}
             else:
                 context=json.loads(linkedin_info)
-            print(context["education"])
             return render(request, 'controller/WorkExperience.html',context=context)
         else:
             redirect("login")

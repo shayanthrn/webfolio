@@ -5,6 +5,7 @@ from django.utils import timezone
 class User(AbstractUser):
     username = models.EmailField(unique=True, null=True)
     linkedin_info = models.TextField()
+    linkedin_url = models.URLField()
     email = models.EmailField(unique=True, null=True)
     is_staff = models.BooleanField(default=False,null=True)
     is_active = models.BooleanField(default=True, null=True)

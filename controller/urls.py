@@ -7,6 +7,7 @@ urlpatterns = [
     path('',dashboard.as_view(),name="dashboard"),
     path('login/',Login_site.urls,name="login"),
     path('dashboard/',dashboard.as_view()),
+    path('import/',importv.as_view()),
     path('information/',information.as_view()),
     path('education/',education.as_view()),
     path('education/add/',addeducation.as_view()),
