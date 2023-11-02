@@ -2,6 +2,7 @@ from django.views import View
 import requests
 from django.shortcuts import redirect, render
 from django.views import View
+import json
 
 # api_endpoint = 'https://nubela.co/proxycurl/api/v2/linkedin'
         # linkedin_profile_url = request.GET['linkedinurl']
@@ -17,8 +18,11 @@ class dashboard(View):
     def get(self,request):
         if request.user.is_authenticated:
             linkedin_info = request.user.linkedin_info
-            print(linkedin_info==None)
-            return render(request, 'controller/dashboard.html',context={})
+            if linkedin_info=="{}":
+                context={}
+            else:
+                context=json.loads(linkedin_info)
+            return render(request, 'controller/dashboard.html',context=context)
         else:
             redirect("login")
 
@@ -32,7 +36,12 @@ class information(View):
 class education(View):
     def get(self,request):
         if request.user.is_authenticated:
-            return render(request, 'controller/education.html')
+            linkedin_info = request.user.linkedin_info
+            if linkedin_info=="{}":
+                context={}
+            else:
+                context=json.loads(linkedin_info)
+            return render(request, 'controller/education.html',context=context)
         else:
             redirect("login")
 
@@ -46,7 +55,13 @@ class addeducation(View):
 class work(View):
     def get(self,request):
         if request.user.is_authenticated:
-            return render(request, 'controller/WorkExperience.html')
+            linkedin_info = request.user.linkedin_info
+            if linkedin_info=="{}":
+                context={}
+            else:
+                context=json.loads(linkedin_info)
+            print(context["education"])
+            return render(request, 'controller/WorkExperience.html',context=context)
         else:
             redirect("login")
 
