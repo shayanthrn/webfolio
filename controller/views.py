@@ -1,6 +1,8 @@
 from django.views import View
 from django.http import JsonResponse
 import requests
+from django.shortcuts import redirect, render
+from django.views import View
 
 class Analyze(View):
     def get(self,request):
@@ -15,3 +17,14 @@ class Analyze(View):
                         headers=headers)
         print(response.json())
         return JsonResponse({"requested":"hi"})
+
+
+# Create your views here.
+class Test(View):
+
+    def __init__(self):
+        super().__init__()
+
+    
+    def get(self, request):
+        return render(request, 'controller/login.html')
