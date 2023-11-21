@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+    {% load static %} 
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Webfolio</title>
+        <meta name="description" content="Snap is a beautiful Bootstrap 4 template for multipurpose landing pages." /> 
+
+        <!--Inter UI font-->
+        <link href="https://rsms.me/inter/inter-ui.css" rel="stylesheet">
+
+        <!--vendors styles-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+
+        <!-- Bootstrap CSS / Color Scheme -->
+        <link rel="stylesheet" href="{% static 'dist/css/landingcss/default.css' %}" id="theme-color">
+    </head>
+    <body>
+
+        <!--hero header-->
+        <section class="py-5 py-md-7" id="home">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 my-md-auto mb-5 mb-md-0 text-center text-md-left">
+                        
+                        <h1 class="display-4 mt-2 mb-5">The fastest way to create an amazing Portfolio Website.</h1>
+                        <a href="login.html" class="btn btn-primary d-inline-flex flex-row align-items-center">
+                            <img src="dist/img/login.png" width="25px" height="25px" alt="" class="mr-2">
+                            Login
+                        </a>
+                        <a href="register.html" class="btn btn-secondary d-md-inline-flex flex-row align-items-center d-none">
+                            <img src="dist/img/signup.png" width="25px" height="25px" alt="" class="mr-2">
+                            Sign Up
+                        </a>
+                    </div>
+                    <div class="col-md-6 play-wrapper">
+                        <img src="dist/img/macbook.png" class="img-fluid d-block mx-auto" alt="MacBook" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- features section -->
+        <section class="py-6" id="features">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 mx-auto">
+                        <h2 class="dot-circle">There are enough reasons to use Webfolio.</h2>
+                        <div class="row mt-6">
+                            <div class="col-sm-6 mb-5">
+                                <div class="media">
+                                    <div class="icon-box mt-0 ml-0">
+                                        <div class="icon-box-inner small-xs text-primary">
+                                            <img src="dist/img/text-wise.PNG" width="30px" height="30px" alt="" class="mr-2">
+                                        </div>
+                                    </div>
+                                    <div class="media-body">
+                                        <h5 class="mt-0">Text-wise recommendation</h5>
+                                        <span class="text-muted">If you need suggestions to fill in your form you can have it by one click.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 mb-5">
+                                <div class="media">
+                                    <div class="icon-box mt-0 ml-0">
+                                        <div class="icon-box-inner small-xs text-primary">
+                                            <img src="dist/img/design-wise.PNG" width="30px" height="30px" alt="" class="mr-2">
+                                        </div>
+                                    </div>
+                                    <div class="media-body">
+                                        <h5 class="mt-0">Design-wise recommendation</h5>
+                                        <span class="text-muted">Webfolio offers you best suggestions based on machine learning methods. </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 mb-5">
+                                <div class="media">
+                                    <div class="icon-box mt-0 ml-0">
+                                        <div class="icon-box-inner small-xs text-primary">
+                                            <img src="dist/img/up.PNG" width="30px" height="30px" alt="" class="mr-2">
+                                        </div>
+                                    </div>
+                                    <div class="media-body">
+                                        <h5 class="mt-0">Import from Linkedin</h5>
+                                        <span class="text-muted">You can easily import your data from your linkedin account and save your time.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 mb-5">
+                                <div class="media">
+                                    <div class="icon-box mt-0 ml-0">
+                                        <div class="icon-box-inner small-xs text-primary">
+                                            <img src="dist/img/down.PNG" width="30px" height="30px" alt="" class="mr-2">                                        </div>
+                                    </div>
+                                    <div class="media-body">
+                                        <h5 class="mt-0">File Export</h5>
+                                        <span class="text-muted">You can easily export your website as an HTML file and use it every where.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--footer / contact-->
+        <footer class="mt-5 mb-4">
+            <div class="container">
+                <div class="row mt-4">
+                    <div class="col-12 text-muted text-center small">
+                        &copy; Group12 - Software Engineering
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!--video section-->
+        <section class="video-wrapper">
+            <div class="video-close" id="video-close">
+                <em data-feather="x" class="icon"></em>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 mx-auto my-auto">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item allowfullscreen" 
+                                    src="https://www.youtube.com/embed/MGsalg2f9js?rel=0&amp;controls=0&amp;showinfo=0" 
+                                    allowfullscreen="" frameborder="0" height="415" width="100%">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--scroll to top-->
+        <div class="scroll-top">
+            <i class="fa fa-angle-up" aria-hidden="true"></i>
+        </div>
+
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.5.0/feather.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+        <script src="{% static 'dist/js/landingscripts.js' %}"></script>
+    </body>
+</html>
