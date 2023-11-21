@@ -4,20 +4,49 @@ from django.shortcuts import redirect, render
 from django.views import View
 import json
 from .models import User
+from django.contrib.auth import login, authenticate
+
 
 class dashboard(View):
     def get(self,request):
         if request.user.is_authenticated:
-            linkedin_info = request.user.linkedin_info
-            if linkedin_info=="{}":
-                context={}
-            else:
-                context=json.loads(linkedin_info)
+            context = {"firstname":request.user.first_name}
             return render(request, 'controller/dashboard.html',context=context)
         else:
             return redirect("/login/")
+        
+class Login(View):
+    def get(self,request):
+        context={}
+        return render(request, 'controller/login.html',context=context)
     
-
+    def post(self,request):
+        auser = authenticate(request, username=request.POST["username"], password=request.POST["password"])
+        if auser:
+            login(request, auser)
+            return redirect("/dashboard/")
+        else:
+            context = {"fail":1}
+            return render(request, 'controller/login.html',context=context)
+        
+class Register(View):
+    def get(self,request):
+        context={}
+        return render(request, 'controller/register.html',context=context)
+    def post(self,request):
+        email = request.POST['email']
+        firstname = request.POST['firstname']
+        lastname = request.POST['lastname']
+        password = request.POST['password']
+        linkedin_url = request.POST['linkedinurl']
+        user = User.objects.create_user(username=email,
+                                        first_name=firstname,
+                                        last_name=lastname,
+                                        linkedin_url = linkedin_url,email=email,password=password)
+        auser = authenticate(request, username=user.username, password=password)
+        login(request, auser)
+        return redirect("/dashboard/")
+    
 
 class importv(View):
     def get(self,request):

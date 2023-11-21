@@ -26,7 +26,7 @@
     </div>
     <div class="card-body">
       <div class="login-box-msg text-lg text-bold">Please Login to start!</div>
-      <form action="/admin/login/?next=/dashboard/" method="post" class="mb-4">
+      <form action="/login/" method="post" class="mb-4">
         {% csrf_token %}
         <div class="input-group mb-3">
           <input type="email" name="username" class="form-control" placeholder="Email">
@@ -46,12 +46,6 @@
         </div>
         <div class="row">
           <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="remember">
-              <label for="remember">
-                Remember Me
-              </label>
-            </div>
           </div>
           <!-- /.col -->
           <div class="col-4">
@@ -60,13 +54,15 @@
           <!-- /.col -->
         </div>
       </form>
-
+      {% if fail == 1 %}
+        <p style="color: red;">The credentials are not matching!</p>
+      {% endif %}
       <div class="mt-4">
         <p class="mb-1">
           <a href="forgot-password.html">I forgot my password</a>
         </p>
         <p class="mb-0">
-          <a href="register.html" class="text-center">Not Register Yet </a>
+          <a href="/register/" class="text-center">Not Register Yet? </a>
         </p>
       </div>
 
