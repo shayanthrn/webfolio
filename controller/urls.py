@@ -17,5 +17,4 @@ urlpatterns = [
     path('portfolio/add/',addportfolio.as_view()),
     path('export/',export.as_view()),
     path('feedback/',feedback.as_view()),
-    path('test/', Test.as_view(), name='test'),
 ]

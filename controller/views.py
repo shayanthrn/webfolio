@@ -16,7 +16,7 @@ class dashboard(View):
                 context=json.loads(linkedin_info)
             return render(request, 'controller/dashboard.html',context=context)
         else:
-            redirect("login")
+            return redirect("./login")
     
 
 
@@ -36,14 +36,14 @@ class importv(View):
                 User.objects.filter(username=request.user.username).update(linkedin_info=response.text)
                 return render(request, 'controller/dashboard.html',context={"imported":"1"})
             else:
-                redirect("login")
+                return redirect("./login")
 
 class information(View):
     def get(self,request):
         if request.user.is_authenticated:
             return render(request, 'controller/information.html')
         else:
-            redirect("login")
+            return redirect("./login")
 
 class education(View):
     def get(self,request):
@@ -55,14 +55,14 @@ class education(View):
                 context=json.loads(linkedin_info)
             return render(request, 'controller/education.html',context=context)
         else:
-            redirect("login")
+            return redirect("./login")
 
 class addeducation(View):
     def get(self,request):
         if request.user.is_authenticated:
             return render(request, 'controller/add-education.html')
         else:
-            redirect("login")
+            return redirect("./login")
 
 class work(View):
     def get(self,request):
@@ -74,48 +74,39 @@ class work(View):
                 context=json.loads(linkedin_info)
             return render(request, 'controller/WorkExperience.html',context=context)
         else:
-            redirect("login")
+            return redirect("./login")
 
 class addwork(View):
     def get(self,request):
         if request.user.is_authenticated:
             return render(request, 'controller/add-WorkExperience.html')
         else:
-            redirect("login")
+            return redirect("./login")
             
 class portfolio(View):
     def get(self,request):
         if request.user.is_authenticated:
             return render(request, 'controller/portfolio.html')
         else:
-            redirect("login")
+            return redirect("./login")
 
 class addportfolio(View):
     def get(self,request):
         if request.user.is_authenticated:
             return render(request, 'controller/add-portfolio.html')
         else:
-            redirect("login")
+            return redirect("./login")
 
 class export(View):
     def get(self,request):
         if request.user.is_authenticated:
             return render(request, 'controller/portfolio.html')
         else:
-            redirect("login")
+            return  redirect("./login")
 
 class feedback(View):
     def get(self,request):
         if request.user.is_authenticated:
             return render(request, 'controller/portfolio.html')
         else:
-            redirect("login")
-
-class Test(View):
-
-    def __init__(self):
-        super().__init__()
-
-    
-    def get(self, request):
-        return render(request, 'controller/login.html')
+            return redirect("./login")
