@@ -7,6 +7,10 @@ from .models import *
 from django.contrib.auth import login, authenticate
 
 
+class landing(View):
+    def get(self,request):
+        return render(request, 'controller/langing.html')
+
 class dashboard(View):
     def get(self,request):
         if request.user.is_authenticated:
