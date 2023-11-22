@@ -69,7 +69,35 @@ class importv(View):
 class information(View):
     def get(self,request):
         if request.user.is_authenticated:
-            return render(request, 'controller/information.html')
+            context = {"firstname":request.user.first_name,"lastname":request.user.last_name,"email":request.user.email,"linkedinurl":request.user.linkedin_url}
+            return render(request, 'controller/information.html',context=context)
+        else:
+            return redirect("/login/")
+        
+    def post(self,request):
+        if request.user.is_authenticated:
+            user = User.objects.get(username=request.user.username)
+            user.first_name = request.POST["firstname"]
+            user.last_name = request.POST["lastname"]
+            user.email = request.POST["email"]
+            user.username = request.POST["email"]
+            user.linkedin_url = request.POST["linkedinurl"]
+            user.save()
+            return render(request, 'controller/confirm.html')
+        else:
+            return redirect("/login/")
+        
+class changepassword(View):
+    def post(self,request):
+        if request.user.is_authenticated:
+            user = User.objects.get(username=request.user.username)
+
+            # Set the new password
+            new_password = request.POST["password"]
+            user.set_password(new_password)
+            # Save the user to update the password
+            user.save()
+            return render(request, 'controller/confirm.html')
         else:
             return redirect("/login/")
 

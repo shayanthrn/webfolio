@@ -166,27 +166,28 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <form class="form-horizontal">
+            <form action="/information/" method="post" class="form-horizontal">
+              {% csrf_token %}
               <div class="form-group row">
                 <label for="inputName" class="col-md-2 col-form-label">First Name</label>
                   <div class="col-md-4">
-                   <input type="text" class="form-control" id="inputName" placeholder="First Name">
+                   <input type="text" name="firstname" class="form-control" value="{{ firstname }}" id="inputName" placeholder="First Name">
                   </div>
                 <label for="inputName" class="col-md-2 col-form-label">Last Name</label>
                   <div class="col-md-4">
-                   <input type="text" class="form-control" id="inputName" placeholder="Last Name">
+                   <input type="text" name="lastname" class="form-control" id="inputName" value="{{ lastname }}" placeholder="Last Name">
                   </div>
               </div>
               <div class="form-group row">
                 <label for="inputEmail" class="col-md-2 col-form-label">Email</label>
                   <div class="col-md-10">
-                   <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                   <input type="email" name="email" class="form-control" id="inputEmail" value="{{ email }}" placeholder="Email">
                   </div>
               </div>
               <div class="form-group row">
                <label for="inputSkills" class="col-md-2 col-form-label">Linkedin URL</label>
                 <div class="col-md-10">
-                 <input type="url" class="form-control" id="inputLinkedin" placeholder="Linkedin URL">
+                 <input type="url" name="linkedinurl" class="form-control" id="inputLinkedin" value="{{ linkedinurl }}" placeholder="Linkedin URL">
                 </div>
               </div>
               <div class="form-group row">
@@ -218,11 +219,12 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <form class="form-horizontal">
+            <form action="/changepass/" method="post" class="form-horizontal">
+              {% csrf_token %}
               <div class="form-group row">
                 <label for="newpassword" class="col-md-5 col-form-label">new password</label>
                 <div class="col-md-7">
-                 <input type="password" class="form-control" id="newpassword" placeholder="password">
+                 <input type="password" name="password" class="form-control" id="newpassword" placeholder="password">
                 </div>
               </div>
               <div class="form-group row">
@@ -268,8 +270,6 @@
 <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
 <!-- Bootstrap 4 -->
 <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{% static 'dist/js/demo.js' %}"></script>
 <!-- AdminLTE App -->
 <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
 </body>
