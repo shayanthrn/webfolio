@@ -89,20 +89,22 @@
             </a>
           </li>
         
-          <li class="nav-item">
-            <a href="/portfolio/" class="nav-link">
-              <i class="nav-icon far fa-image"></i>
-              <p>
-                Portfolio
-              </p>
-            </a>
-          </li>
+          
 
           <li class="nav-item">
             <a href="/work/">
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Work Experience
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="/portfolio/" class="nav-link">
+              <i class="nav-icon far fa-image"></i>
+              <p>
+                Portfolio
               </p>
             </a>
           </li>
@@ -167,53 +169,44 @@
               </div>
               <!-- /.card-header -->
             <div class="card-body">
-             <form class="form-horizontal">
+             <form action="/education/a/add/" method="post" class="form-horizontal">
+              {% csrf_token %}
               <div class="form-group row">
                 <label for="inputSchool" class="col-md-2 col-form-label">School</label>
                   <div class="col-md-10">
-                   <input type="text" class="form-control" id="inputSchool" placeholder="School Name">
+                   <input type="text" name="school" class="form-control" id="inputSchool" placeholder="School Name">
                   </div>
               </div>
               <div class="form-group row">
                 <label for="inputDegree" class="col-md-2 col-form-label">Degree</label>
                   <div class="col-md-10">
-                   <input type="text" class="form-control" id="inputDegree" placeholder="Degree">
+                   <input type="text" name="degree" class="form-control" id="inputDegree" placeholder="Degree">
                   </div>
               </div>
               <div class="form-group row">
                 <label for="inputField" class="col-md-2 col-form-label">Field of Study</label>
                   <div class="col-md-10">
-                   <input type="text" class="form-control" id="inputField" placeholder="Field of study">
+                   <input type="text" name="field_of_study" class="form-control" id="inputField" placeholder="Field of study">
                   </div>
               </div>
                <!-- Date -->
                <div class="form-group row">
                 <label for="inputStart" class="col-md-2 col-form-label">Start Date</label>
-                  <div class="col-md-4 mr-auto input-group date" id="inputstartDate" data-target-input="nearest">
-                      <input type="text" class="form-control datetimepicker-input" id="inputStart" data-target="#inputstartDate"/>
-                      <div class="input-group-append" data-target="#inputstartDate" data-toggle="datetimepicker">
-                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                      </div>
-                  </div>
+                <input style="width: 35%;" type="date" name="startdate" class="form-control"/>
                 <label for="inputEnd" class="col-md-1 col-form-label">End Date</label>
-                  <div class="col-md-4 input-group date" id="inputendDate" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" id="inputEnd" data-target="#inputendDate"/>
-                    <div class="input-group-append" data-target="#inputendDate" data-toggle="datetimepicker">
-                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                    </div>
+                <input style="width: 35%;" type="date" name="enddate" class="form-control" />
                 </div>
-              </div>
                <!-- Date -->
               <div class="form-group row">
                <label for="inputGrade" class="col-md-2 col-form-label">Grade</label>
                 <div class="col-md-10">
-                 <input type="text" class="form-control" id="inputGrade" placeholder="">
+                 <input type="text" name="grade" class="form-control" id="inputGrade" placeholder="">
                 </div>
               </div>
               <div class="form-group row">
                 <label for="inputActivities" class="col-md-2 col-form-label">Activities</label>
                  <div class="col-md-10">
-                  <textarea class="form-control" id="inputAdress" placeholder="Mention your Activities and societies"></textarea>
+                  <textarea name="description" class="form-control" id="inputAdress" placeholder="Mention your Activities and societies"></textarea>
                  </div>
                </div>
               <div class="form-group row">

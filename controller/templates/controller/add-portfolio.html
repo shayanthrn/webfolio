@@ -91,14 +91,7 @@
             </a>
           </li>
         
-          <li class="nav-item">
-            <a href="/portfolio/" class="nav-link active">
-              <i class="nav-icon far fa-image"></i>
-              <p>
-                Portfolio
-              </p>
-            </a>
-          </li>
+          
 
           <li class="nav-item">
             <a href="/work/" class="nav-link">
@@ -108,6 +101,16 @@
               </p>
             </a>
           </li>
+
+          <li class="nav-item">
+            <a href="/portfolio/" class="nav-link active">
+              <i class="nav-icon far fa-image"></i>
+              <p>
+                Portfolio
+              </p>
+            </a>
+          </li>
+          
           <li class="nav-item">
             <a href="/design/" class="nav-link">
               <i class="nav-icon far fa-plus-square"></i>
@@ -169,98 +172,47 @@
               </div>
               <!-- /.card-header -->
             <div class="card-body">
-             <form class="form-horizontal">
+             <form action="/portfolio/a/add/" method="post" enctype="multipart/form-data" class="form-horizontal">
+              {% csrf_token %}
               <div class="form-group row">
                 <label for="inputPortfolio" class="col-md-2 col-form-label">Portfolio Name</label>
                   <div class="col-md-10">
-                   <input type="text" class="form-control" id="inputSchool" placeholder="School Name">
+                   <input type="text" name="name" class="form-control" id="inputPortfolio" placeholder="Portfolio Name">
                   </div>
               </div>
-              
-
-
-
               <div id="actions" class="row">
                   <label for="exampleInputFile col-md-3">Portfolio thumbnail</label>
                   <div class="input-group col-md-auto">
                       <div class="input-group-append">
                         <span class="btn btn-success col fileinput-button ">
                           <i class="fas fa-plus"></i>
-                          <span>Add files</span>
+                          <input name="image" id="fileInput" onchange="previewImage()" type="file">Add files</input>
+                          
                         </span>
                       </div>
+                      
                   </div>
                 </div>
-              <div class="table table-striped files" id="previews">
-                <div id="template" class="row mt-2">
-                  <div class="col-auto">
-                      <span class="preview"><img src="data:," alt="" data-dz-thumbnail /></span>
-                  </div>
-                  <div class="col d-flex align-items-center">
-                      <p class="mb-0">
-                        <span class="lead" data-dz-name></span>
-                        (<span data-dz-size></span>)
-                      </p>
-                      <strong class="error text-danger" data-dz-errormessage></strong>
-                  </div>
-                  <div class="col-4 d-flex align-items-center">
-                      <div class="progress progress-striped active w-100" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-                        <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
-                      </div>
-                  </div>
-                  <div class="col-auto d-flex align-items-center">
-                    <div class="btn-group">
-                      <button class="btn btn-primary start">
-                        <i class="fas fa-upload"></i>
-                        <span>Start</span>
-                      </button>
-                      <button data-dz-remove class="btn btn-warning cancel">
-                        <i class="fas fa-times-circle"></i>
-                        <span>Cancel</span>
-                      </button>
-                      <button data-dz-remove class="btn btn-danger delete">
-                        <i class="fas fa-trash"></i>
-                        <span>Delete</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-
-
-
-
-
+              <div style="margin-top: 2%;" id="imagePreview" class="col-auto"></div>
                <!-- Date -->
                <div class="form-group row">
                 <label for="inputStart" class="col-md-2 col-form-label">Start Date</label>
-                  <div class="col-md-4 mr-auto input-group date" id="inputstartDate" data-target-input="nearest">
-                      <input type="text" class="form-control datetimepicker-input" id="inputStart" data-target="#inputstartDate"/>
-                      <div class="input-group-append" data-target="#inputstartDate" data-toggle="datetimepicker">
-                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                      </div>
-                  </div>
+                <input style="width: 35%;" type="date" name="startdate" class="form-control"/>
                 <label for="inputEnd" class="col-md-1 col-form-label">End Date</label>
-                  <div class="col-md-4 input-group date" id="inputendDate" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" id="inputEnd" data-target="#inputendDate"/>
-                    <div class="input-group-append" data-target="#inputendDate" data-toggle="datetimepicker">
-                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                    </div>
+                <input style="width: 35%;" type="date" name="enddate" class="form-control" />
                 </div>
               </div>
                <!-- Date -->
               <div class="form-group row">
                <label for="inputGrade" class="col-md-2 col-form-label">Company name</label>
                 <div class="col-md-10">
-                 <input type="text" class="form-control" id="inputGrade" placeholder="">
+                 <input type="text" name="companyname" class="form-control" id="inputGrade" placeholder="">
                 </div>
               </div>
               <div class="form-group row">
                 <label for="inputActivities" class="col-md-2 col-form-label">Description</label>
                  <div class="col-md-10">
-                  <textarea class="form-control" id="inputAdress" placeholder="Mention your Activities and societies"></textarea>
+                  <textarea name="description" class="form-control" id="inputAdress" placeholder="Mention your Activities and societies"></textarea>
                  </div>
                </div>
               <div class="form-group row">
@@ -310,6 +262,38 @@
 <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
 <!-- Page specific script -->
 <script>
+  function previewImage() {
+    var fileInput = document.getElementById('fileInput');
+    var imagePreview = document.getElementById('imagePreview');
+
+    // Clear previous preview
+    imagePreview.innerHTML = '';
+
+    var files = fileInput.files;
+    for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+
+        // Check if the file is an image
+        if (file.type.match('image.*')) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                // Create an image element and set its source to the data URL
+                var img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.maxWidth = '100%';
+                img.style.maxHeight = '200px';
+
+                // Append the image to the preview div
+                imagePreview.appendChild(img);
+            };
+
+            // Read the file as a data URL
+            reader.readAsDataURL(file);
+        }
+    }
+}
+
   $(function () {
      //Date picker
      $('#inputstartDate').datetimepicker({
@@ -327,7 +311,7 @@ var previewNode = document.querySelector("#template")
 previewNode.id = ""
 var previewTemplate = previewNode.parentNode.innerHTML
 previewNode.parentNode.removeChild(previewNode)
-
+file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file) }
 var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
   url: "/target-url", // Set the url
   thumbnailWidth: 80,
@@ -336,7 +320,7 @@ var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
   previewTemplate: previewTemplate,
   autoQueue: false, // Make sure the files aren't queued until manually added
   previewsContainer: "#previews", // Define the container to display the previews
-  clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
+  // clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
 })
 
 myDropzone.on("addedfile", function(file) {

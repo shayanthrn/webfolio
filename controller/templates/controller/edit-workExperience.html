@@ -173,12 +173,12 @@
               </div>
               <!-- /.card-header -->
             <div class="card-body">
-             <form action="/work/a/add/" method="post" class="form-horizontal">
+             <form method="post" class="form-horizontal">
               {% csrf_token %}
               <div class="form-group row">
                 <label for="inputTitle" class="col-md-2 col-form-label">Title</label>
                   <div class="col-md-10">
-                   <input type="text" name="title" class="form-control" id="inputTitle" placeholder="Example: Software Develper">
+                   <input type="text" value="{{work.title}}" name="title" class="form-control" id="inputTitle" placeholder="Example: Software Develper">
                   </div>
               </div>
               <div class="form-group row">
@@ -201,39 +201,42 @@
               <div class="form-group row">
                 <label for="inputCompany" class="col-md-2 col-form-label">Company Name</label>
                   <div class="col-md-10">
-                   <input type="text" name="company_name" class="form-control" id="inputCompany" placeholder="Example: Microsoft">
+                   <input type="text" value="{{work.company_name}}" name="company_name" class="form-control" id="inputCompany" placeholder="Example: Microsoft">
                   </div>
               </div>
                <!-- Date -->
                <div class="form-group row">
                 <label for="inputStart" class="col-md-2 col-form-label">Start Date</label>
-                <input style="width: 35%;" type="date" name="start_date" class="form-control"/>
+                <input style="width: 35%;" value="{{work.start_date|date:'Y-m-d'}}" type="date" name="start_date" class="form-control"/>
                 <label for="inputEnd" class="col-md-1 col-form-label">End Date</label>
-                <input style="width: 35%;" type="date" name="end_date" class="form-control" />
+                <input style="width: 35%;" value="{{work.end_date|date:'Y-m-d'}}" type="date" name="end_date" class="form-control" />
                 </div>
                <!-- Date -->
               <div class="form-group row">
                <label for="inputLocation" class="col-md-2 col-form-label">Location</label>
                 <div class="col-md-10">
-                 <input type="text" name="location" class="form-control" id="inputLocation" placeholder="Example: London, United Kingdom">
+                 <input type="text" name="location" value="{{work.location}}" class="form-control" id="inputLocation" placeholder="Example: London, United Kingdom">
                 </div>
               </div>
               <div class="form-group row">
                 <label for="inputIndustry" class="col-md-2 col-form-label">Industry</label>
                  <div class="col-md-10">
-                  <input type="text" name="industry" class="form-control" id="inputIndustry" placeholder="Example: Retail">
+                  <input type="text" name="industry" value="{{work.industry}}" class="form-control" id="inputIndustry" placeholder="Example: Retail">
                  </div>
                </div>
               <div class="form-group row">
                 <label for="inputDescription" class="col-md-2 col-form-label">Job Description</label>
                  <div class="col-md-10">
-                  <textarea class="form-control" name="description" id="inputAdress" placeholder="Mention your Activities and societies"></textarea>
+                  <textarea class="form-control" name="description" id="inputAdress" placeholder="Mention your Activities and societies">{{work.description}}</textarea>
                  </div>
                </div>
                <div class="form-group row">
                 <label for="inputIndustry" class="col-md-2 col-form-label">skills</label>
                  <div class="col-md-10">
-                  <select class="form-control skillpicker" name="skills" multiple="multiple">
+                  <select name="skills" class="form-control skillpicker" multiple="multiple">
+                    {% for i in skills %}
+                    <option selected="selected">{{i}}</option>
+                    {% endfor %}
                   </select>
                  </div>
                </div>
