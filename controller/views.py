@@ -9,7 +9,7 @@ from django.contrib.auth import login, authenticate
 
 class landing(View):
     def get(self,request):
-        return render(request, 'controller/langing.html')
+        return render(request, 'controller/LandingPage.html')
 
 class dashboard(View):
     def get(self,request):
