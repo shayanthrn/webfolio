@@ -1,9 +1,9 @@
 from django.views import View
 import requests
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views import View
 import json
-from .models import User
+from .models import *
 from django.contrib.auth import login, authenticate
 
 
@@ -104,11 +104,8 @@ class changepassword(View):
 class education(View):
     def get(self,request):
         if request.user.is_authenticated:
-            linkedin_info = request.user.linkedin_info
-            if linkedin_info=="{}":
-                context={}
-            else:
-                context=json.loads(linkedin_info)
+            educations = Education.objects.filter(user=request.user)
+            context={"educations":educations}
             return render(request, 'controller/education.html',context=context)
         else:
             return redirect("/login/")
@@ -120,15 +117,30 @@ class addeducation(View):
         else:
             return redirect("/login/")
 
+class deleteeducation(View):
+    def get(self,request,id):
+        if request.user.is_authenticated:
+            education = get_object_or_404(Education, pk=id)
+            education.delete()
+            return render(request, 'controller/confirm.html')
+        else:
+            return redirect("/login/")
+        
 class work(View):
     def get(self,request):
         if request.user.is_authenticated:
-            linkedin_info = request.user.linkedin_info
-            if linkedin_info=="{}":
-                context={}
-            else:
-                context=json.loads(linkedin_info)
+            works = Work.objects.filter(user=request.user)
+            context = {"works":works}
             return render(request, 'controller/WorkExperience.html',context=context)
+        else:
+            return redirect("/login/")
+
+class deletework(View):
+    def get(self,request,id):
+        if request.user.is_authenticated:
+            work = get_object_or_404(Work, pk=id)
+            work.delete()
+            return render(request, 'controller/confirm.html')
         else:
             return redirect("/login/")
 
@@ -142,7 +154,9 @@ class addwork(View):
 class portfolio(View):
     def get(self,request):
         if request.user.is_authenticated:
-            return render(request, 'controller/portfolio.html')
+            portfolios = Portfolio.objects.filter(user=request.user)
+            context = {"portfolios":portfolios}
+            return render(request, 'controller/portfolio.html',context=context)
         else:
             return redirect("/login/")
 
@@ -153,7 +167,16 @@ class addportfolio(View):
         else:
             return redirect("/login/")
 
-class export(View):
+class deleteportfolio(View):
+    def get(self,request,id):
+        if request.user.is_authenticated:
+            portfolio = get_object_or_404(Portfolio, pk=id)
+            portfolio.delete()
+            return render(request, 'controller/confirm.html')
+        else:
+            return redirect("/login/")
+
+class design(View):
     def get(self,request):
         if request.user.is_authenticated:
             return render(request, 'controller/portfolio.html')

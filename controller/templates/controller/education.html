@@ -102,10 +102,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/design/" class="nav-link">
               <i class="nav-icon far fa-plus-square"></i>
               <p>
-                Export
+                Design
               </p>
             </a>
           </li>
@@ -155,10 +155,7 @@
               <i class="fas fa-plus mr-1"></i>
               Add
             </a>
-            <a type="button" class="btn btn-primary">
-              <i class="fas fa-plus mr-1"></i>
-              import from linkedin
-            </a>
+        
           </div>
         </div>
         <div class="card-body p-0">
@@ -182,28 +179,28 @@
                   </tr>
               </thead>
               <tbody>
-              {% for i in education %} 
+              {% for i in educations %} 
                 <tr>
                   <td>
-                    {{ forloop.counter0 }}
+                    {{ forloop.counter }}
                   </td>
                   <td>
                       {{i.school}}
                   </td>
                   <td>
-                    {{i.degree_name}}
+                    {{i.degree}}
                   </td>
                   <td>
                    {{ i.field_of_study }}
                   </td>
                   
                   <td class="project-actions text-right">
-                      <a class="btn btn-info btn-sm" href="add-/education/">
+                      <a class="btn btn-info btn-sm" href="/education/{{i.id}}/">
                           <i class="fas fa-pencil-alt mr-1">
                           </i>
                           Edit
                       </a>
-                      <a class="btn btn-danger btn-sm" href="#">
+                      <a class="btn btn-danger btn-sm" href="/education/delete/{{i.id}}/">
                           <i class="fas fa-trash mr-1">
                           </i>
                           Delete

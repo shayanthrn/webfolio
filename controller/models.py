@@ -32,7 +32,7 @@ class Education(models.Model):
 class Portfolio(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
-    thumbnail = models.ImageField(upload_to='portfolio_thumbnails/', null=True, blank=True)
+    thumbnail = models.ImageField(upload_to='static/portfolio_thumbnails/', null=True, blank=True)
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
     company_name = models.CharField(max_length=255)
