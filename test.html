@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <title>HTML to Image</title>
+</head>
+<body>
+  <!-- Your HTML content to be converted to an image -->
+  <div id="htmlContent">
+    <h1>Hello, world!</h1>
+    <p>This is some HTML content.</p>
+  </div>
+
+  <!-- Button to trigger the conversion -->
+  <button onclick="convertToImage()">Convert to Image</button>
+
+  <!-- Placeholder for the converted image -->
+  <div id="imageContainer"></div>
+
+  <script>
+    function convertToImage() {
+      // Get the HTML element to convert
+      const element = document.getElementById('htmlContent');
+
+      // Use html2canvas to convert the element to an image
+      html2canvas(element).then(function(canvas) {
+        // Append the canvas (image) to a container
+        const imageContainer = document.getElementById('imageContainer');
+        imageContainer.innerHTML = '';
+        imageContainer.appendChild(canvas);
+      });
+    }
+  </script>
+</body>
+</html>

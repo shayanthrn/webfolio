@@ -4,22 +4,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Work Experiences</title>
+  <title>Portfolio</title>
 
- <!-- Google Font: Source Sans Pro -->
- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
- <!-- Font Awesome -->
- <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
- <!-- iCheck for checkboxes and radio inputs -->
- <link rel="stylesheet" href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
-  <!-- Select2 -->
-  <link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
-  <link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}">
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
   <!-- Tempusdominus Bootstrap 4 -->
   <link rel="stylesheet" href="{% static 'plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %} " >
+  <!-- dropzonejs -->
+  <link rel="stylesheet" href="{% static 'plugins/dropzone/min/dropzone.min.css' %}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
-
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -96,7 +94,7 @@
           
 
           <li class="nav-item">
-            <a href="/work/" class="nav-link active">
+            <a href="/work/" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Work Experience
@@ -105,13 +103,14 @@
           </li>
 
           <li class="nav-item">
-            <a href="/portfolio/" class="nav-link">
+            <a href="/portfolio/" class="nav-link active">
               <i class="nav-icon far fa-image"></i>
               <p>
                 Portfolio
               </p>
             </a>
           </li>
+          
           <li class="nav-item">
             <a href="/design/" class="nav-link">
               <i class="nav-icon far fa-plus-square"></i>
@@ -142,12 +141,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-md-6">
-            <h1>My Work Experiences</h1>
+            <h1>My Portfolio</h1>
           </div>
           <div class="col-md-6">
             <ol class="breadcrumb float-md-right">
               <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
-              <li class="breadcrumb-item active">Work Experience</li>
+              <li class="breadcrumb-item active">Portfolio</li>
             </ol>
           </div>
         </div>
@@ -161,7 +160,7 @@
           <div class="col-md-12">
             <div class="card card-default">
               <div class="card-header">
-               <h3 class="card-title">Work Experience</h3>
+               <h3 class="card-title">Portfolio</h3>
                 <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                 <i class="fas fa-minus"></i>
@@ -173,73 +172,55 @@
               </div>
               <!-- /.card-header -->
             <div class="card-body">
-             <form action="/work/a/add/" method="post" class="form-horizontal">
+             <form action="/portfolio/{{portfolio.id}}/" method="post" enctype="multipart/form-data" class="form-horizontal">
               {% csrf_token %}
               <div class="form-group row">
-                <label for="inputTitle" class="col-md-2 col-form-label">Title</label>
+                <label for="inputPortfolio" class="col-md-2 col-form-label">Portfolio Name</label>
                   <div class="col-md-10">
-                   <input type="text" name="title" class="form-control" id="inputTitle" placeholder="Example: Software Develper">
+                   <input type="text" name="name" class="form-control" value="{{portfolio.name}}" id="inputPortfolio" placeholder="Portfolio Name">
                   </div>
               </div>
-              <div class="form-group row">
-                <label for="inputType" class="col-md-2 col-form-label">Employment type</label>
-                <div class="form-group col-md-10">
-                  <div class="select2-purple">
-                    <select class="select2" name="employment_type" data-placeholder="Select a Type" data-dropdown-css-class="select2-purple" style="width: 100%;">
-                      <option>Self-employed</option>
-                      <option>Freelance</option>
-                      <option>Intership</option>
-                      <option>Full time</option>
-                      <option>Part time</option>
-                      <option>Contract</option>
-                      <option>Co op</option>
-                      <option>Seasonal</option>
-                    </select>
+              <div id="actions" class="row">
+                  <label for="exampleInputFile col-md-3">Portfolio thumbnail</label>
+                  <div  class="form-group col-md-10">
+                    <img src="{{ portfolio.thumbnail.url }}" alt="{{ portfolio.name }} Thumbnail" width="500px" height="250px">
+                  </div>
+                  <div class="input-group col-md-auto">
+                      <div class="input-group-append">
+                        <span class="btn btn-success col fileinput-button ">
+                          <i class="fas fa-plus"></i>
+                          <input name="image" id="fileInput" onchange="previewImage()" type="file">Add files</input>
+                          
+                        </span>
+                      </div>
+                      
                   </div>
                 </div>
-              </div>
-              <div class="form-group row">
-                <label for="inputCompany" class="col-md-2 col-form-label">Company Name</label>
-                  <div class="col-md-10">
-                   <input type="text" name="company_name" class="form-control" id="inputCompany" placeholder="Example: Microsoft">
-                  </div>
-              </div>
+              <div style="margin-top: 2%;" id="imagePreview" class="col-auto"></div>
                <!-- Date -->
                <div class="form-group row">
                 <label for="inputStart" class="col-md-2 col-form-label">Start Date</label>
-                <input style="width: 35%;" type="date" name="start_date" class="form-control"/>
+                <input style="width: 35%;" value="{{portfolio.start_date|date:'Y-m-d'}}" type="date" name="startdate" class="form-control"/>
                 <label for="inputEnd" class="col-md-1 col-form-label">End Date</label>
-                <input style="width: 35%;" type="date" name="end_date" class="form-control" />
+                <input style="width: 35%;" value="{{portfolio.end_date|date:'Y-m-d'}}" type="date" name="enddate" class="form-control" />
                 </div>
+              </div>
                <!-- Date -->
               <div class="form-group row">
-               <label for="inputLocation" class="col-md-2 col-form-label">Location</label>
+               <label for="inputGrade" class="col-md-2 col-form-label">Company name</label>
                 <div class="col-md-10">
-                 <input type="text" name="location" class="form-control" id="inputLocation" placeholder="Example: London, United Kingdom">
+                 <input type="text" name="companyname" value="{{portfolio.company_name}}" class="form-control" id="inputGrade" placeholder="">
                 </div>
               </div>
               <div class="form-group row">
-                <label for="inputIndustry" class="col-md-2 col-form-label">Industry</label>
+                <label for="inputActivities" class="col-md-2 col-form-label">Description</label>
                  <div class="col-md-10">
-                  <input type="text" name="industry" class="form-control" id="inputIndustry" placeholder="Example: Retail">
-                 </div>
-               </div>
-              <div class="form-group row">
-                <label for="inputDescription" class="col-md-2 col-form-label">Job Description</label>
-                 <div class="col-md-10">
-                  <textarea class="form-control" name="description" id="inputAdress" placeholder="Mention your Activities and societies"></textarea>
-                 </div>
-               </div>
-               <div class="form-group row">
-                <label for="inputIndustry" class="col-md-2 col-form-label">skills</label>
-                 <div class="col-md-10">
-                  <select class="form-control skillpicker" name="skills" multiple="multiple">
-                  </select>
+                  <textarea name="description" class="form-control" id="inputAdress" placeholder="Mention your Activities and societies">{{portfolio.description}}</textarea>
                  </div>
                </div>
               <div class="form-group row">
                 <div class="offset-md-2 col-md-10">
-                 <button type="submit" class="btn btn-primary">Save</button>
+                 <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
               </div>
              </form>
@@ -274,36 +255,49 @@
 <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
 <!-- Bootstrap 4 -->
 <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-
 <script src="{% static 'plugins/moment/moment.min.js' %}"></script>
 
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="{% static 'plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
-<!-- Select2 -->
-<script src="{% static 'plugins/select2/js/select2.full.min.js' %}"></script>
+<!-- dropzonejs -->
+<script src="{% static 'plugins/dropzone/min/dropzone.min.js' %}"></script>
 <!-- AdminLTE App -->
 <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
-
 <!-- Page specific script -->
 <script>
+  function previewImage() {
+    var fileInput = document.getElementById('fileInput');
+    var imagePreview = document.getElementById('imagePreview');
+
+    // Clear previous preview
+    imagePreview.innerHTML = '';
+
+    var files = fileInput.files;
+    for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+
+        // Check if the file is an image
+        if (file.type.match('image.*')) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                // Create an image element and set its source to the data URL
+                var img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.maxWidth = '100%';
+                img.style.maxHeight = '200px';
+
+                // Append the image to the preview div
+                imagePreview.appendChild(img);
+            };
+
+            // Read the file as a data URL
+            reader.readAsDataURL(file);
+        }
+    }
+}
+
   $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
-
-    //Initialize Select2 Elements
-    $('.select2bs4').select2({
-      theme: 'bootstrap4'
-    })
-
-
-    $('.skillpicker').select2({
-    tags: true,
-    tokenSeparators: [',', ' '],
-    theme: 'bootstrap4'
-
-    })
-
-
      //Date picker
      $('#inputstartDate').datetimepicker({
         format: 'L'
@@ -311,6 +305,60 @@
     $('#inputendDate').datetimepicker({
         format: 'L'
     });
+
+// DropzoneJS Demo Code Start
+Dropzone.autoDiscover = false
+
+// Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
+var previewNode = document.querySelector("#template")
+previewNode.id = ""
+var previewTemplate = previewNode.parentNode.innerHTML
+previewNode.parentNode.removeChild(previewNode)
+file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file) }
+var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
+  url: "/target-url", // Set the url
+  thumbnailWidth: 80,
+  thumbnailHeight: 80,
+  parallelUploads: 20,
+  previewTemplate: previewTemplate,
+  autoQueue: false, // Make sure the files aren't queued until manually added
+  previewsContainer: "#previews", // Define the container to display the previews
+  // clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
+})
+
+myDropzone.on("addedfile", function(file) {
+  // Hookup the start button
+  file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file) }
+})
+
+// Update the total progress bar
+myDropzone.on("totaluploadprogress", function(progress) {
+  document.querySelector("#total-progress .progress-bar").style.width = progress + "%"
+})
+
+myDropzone.on("sending", function(file) {
+  // Show the total progress bar when upload starts
+  document.querySelector("#total-progress").style.opacity = "1"
+  // And disable the start button
+  file.previewElement.querySelector(".start").setAttribute("disabled", "disabled")
+})
+
+// Hide the total progress bar when nothing's uploading anymore
+myDropzone.on("queuecomplete", function(progress) {
+  document.querySelector("#total-progress").style.opacity = "0"
+})
+
+// Setup the buttons for all transfers
+// The "add files" button doesn't need to be setup because the config
+// `clickable` has already been specified.
+document.querySelector("#actions .start").onclick = function() {
+  myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED))
+}
+document.querySelector("#actions .cancel").onclick = function() {
+  myDropzone.removeAllFiles(true)
+}
+// DropzoneJS Demo Code End
+
 
   })
 
