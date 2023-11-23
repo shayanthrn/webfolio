@@ -353,7 +353,7 @@ class editportfolio(View):
 class design(View):
     def get(self,request):
         if request.user.is_authenticated:
-            return render(request, 'controller/portfolio.html')
+            return render(request, 'controller/design.html')
         else:
            return redirect("/login/")
 

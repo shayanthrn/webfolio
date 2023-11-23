@@ -69,3 +69,34 @@ class Work(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s Work - {self.title}"
+    
+class Component(models.Model):
+    html = models.TextField()
+    css = models.CharField(max_length=255)
+    def __str__(self):
+        return f"{self.__class__.__name__} Component"
+
+
+class IntroComponent(Component):
+    description = models.TextField()
+
+
+class IterableComponent(Component):
+    # Additional fields specific to iterable components can be added here
+    iterable_html = models.TextField()
+
+
+class EducationComponent(IterableComponent):
+    pass
+
+
+class WorkComponent(IterableComponent):
+    pass
+
+
+class PortfolioComponent(IterableComponent):
+    pass
+
+
+class SkillsComponent(IterableComponent):
+    pass
