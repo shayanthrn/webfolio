@@ -1,11 +1,14 @@
 from django.test import TestCase
 from django.shortcuts import resolve_url
-from .models import User, Education, Work, Portfolio
+from .models import User, Website, Work, Portfolio
 
 class ViewsTestCase(TestCase):
     def setUp(self):
         # Create a test user for authentication
         self.user = User.objects.create_user(username='testuser', password='testpassword')
+        self.user_web = Website(
+                user=self.user,
+            )
 
     def test_landing_view(self):
         response = self.client.get(resolve_url("/"))
@@ -72,3 +75,4 @@ class ViewsTestCase(TestCase):
     def tearDown(self):
         # Clean up any test data
         self.user.delete()
+        self.user_web.delete()
