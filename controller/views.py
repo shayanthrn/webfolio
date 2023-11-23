@@ -2,7 +2,7 @@ from django.views import View
 import requests
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views import View
-import json
+from django.apps import apps
 from .models import *
 from django.contrib.auth import login, authenticate
 
@@ -47,6 +47,10 @@ class Register(View):
                                         first_name=firstname,
                                         last_name=lastname,
                                         linkedin_url = linkedin_url,email=email,password=password)
+        user_web = Website(
+                user=user,
+            )
+        user_web.save()
         auser = authenticate(request, username=user.username, password=password)
         login(request, auser)
         return redirect("/dashboard/")
@@ -353,10 +357,98 @@ class editportfolio(View):
 class design(View):
     def get(self,request):
         if request.user.is_authenticated:
-            return render(request, 'controller/design.html')
+            intro_components = IntroComponent.objects.all()
+            education_components = EducationComponent.objects.all()
+            work_components = WorkComponent.objects.all()
+            portfolio_components = PortfolioComponent.objects.all()
+            skills_components = SkillsComponent.objects.all()
+            website = Website.objects.filter(user=request.user).first()
+            print(website.components.all())
+            context = {
+                'intro_components': intro_components,
+                'education_components': education_components,
+                'work_components': work_components,
+                'portfolio_components': portfolio_components,
+                'skills_components': skills_components,
+                'web_components' : website.components.all(),
+            }
+
+            return render(request, 'controller/design.html',context=context)
         else:
            return redirect("/login/")
+    def post(self,request):
+        if request.user.is_authenticated:
+            website = Website.objects.filter(user=request.user).first()
+            order = 1
+            if 'radio_intro' in request.POST:
+                component = get_object_or_404(IntroComponent, pk=request.POST['radio_intro'])
+                # Create or get the WebsiteComponentOrder
+                website_component_order, created = WebsiteComponentOrder.objects.get_or_create(
+                    website=website,
+                    component=component,
+                    defaults={'order': order}
+                )
 
+                # If the order already exists, update it
+                if not created:
+                    website_component_order.order = order
+                    website_component_order.save()
+            if 'radio_edu' in request.POST:
+                component = get_object_or_404(EducationComponent, pk=request.POST['radio_edu'])
+                # Create or get the WebsiteComponentOrder
+                website_component_order, created = WebsiteComponentOrder.objects.get_or_create(
+                    website=website,
+                    component=component,
+                    defaults={'order': order}
+                )
+
+                # If the order already exists, update it
+                if not created:
+                    website_component_order.order = order
+                    website_component_order.save()
+            if 'radio_work' in request.POST:
+                component = get_object_or_404(WorkComponent, pk=request.POST['radio_work'])
+                # Create or get the WebsiteComponentOrder
+                website_component_order, created = WebsiteComponentOrder.objects.get_or_create(
+                    website=website,
+                    component=component,
+                    defaults={'order': order}
+                )
+
+                # If the order already exists, update it
+                if not created:
+                    website_component_order.order = order
+                    website_component_order.save()
+            if 'radio_port' in request.POST:
+                component = get_object_or_404(PortfolioComponent, pk=request.POST['radio_port'])
+                # Create or get the WebsiteComponentOrder
+                website_component_order, created = WebsiteComponentOrder.objects.get_or_create(
+                    website=website,
+                    component=component,
+                    defaults={'order': order}
+                )
+
+                # If the order already exists, update it
+                if not created:
+                    website_component_order.order = order
+                    website_component_order.save()
+            
+            if 'radio_skill' in request.POST:
+                component = get_object_or_404(SkillsComponent, pk=request.POST['radio_skill'])
+                # Create or get the WebsiteComponentOrder
+                website_component_order, created = WebsiteComponentOrder.objects.get_or_create(
+                    website=website,
+                    component=component,
+                    defaults={'order': order}
+                )
+
+                # If the order already exists, update it
+                if not created:
+                    website_component_order.order = order
+                    website_component_order.save()
+            return redirect("/design/")
+        else:
+           return redirect("/login/")
 class feedback(View):
     def get(self,request):
         if request.user.is_authenticated:

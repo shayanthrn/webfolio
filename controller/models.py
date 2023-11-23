@@ -72,7 +72,9 @@ class Work(models.Model):
     
 class Component(models.Model):
     html = models.TextField()
-    css = models.CharField(max_length=255)
+    theme = models.CharField(max_length=255)
+    preview = models.ImageField(upload_to='static/component_previews/', null=True, blank=True)
+
     def __str__(self):
         return f"{self.__class__.__name__} Component"
 
@@ -100,3 +102,21 @@ class PortfolioComponent(IterableComponent):
 
 class SkillsComponent(IterableComponent):
     pass
+
+class Website(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    components = models.ManyToManyField(Component, through='WebsiteComponentOrder')
+
+    def __str__(self):
+        return f"Website - {self.pk} for {self.user.username}"
+
+class WebsiteComponentOrder(models.Model):
+    website = models.ForeignKey(Website, on_delete=models.CASCADE)
+    component = models.ForeignKey(Component, on_delete=models.CASCADE)
+    order = models.PositiveIntegerField()
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return f"Order {self.order}: {self.component}"

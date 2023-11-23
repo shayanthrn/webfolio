@@ -207,7 +207,8 @@
           </div>
 
           <div class="card-body p-0">
-            <form>
+            <form method="post">
+              {% csrf_token %}
               <div class="ml-3 mt-3">
                 Add a section:
               </div>
@@ -243,103 +244,52 @@
 
                       <!-- The filterable elements. Note that some have multiple class names (this can be used if they belong to multiple categories) -->
                       <div class="container">
-
+                        {% for i in intro_components %}
                         <div class="filterDiv Introduction">
-                          <input id="radio_1" class="radio isHidden" name="radio_a" type="radio" value="Introduction1">
-                          <label for="radio_1" class="radio-image-container">
-                            <img class="radio-image" src="{% static 'templates/about1.png' %}" alt="Introduction1 Image">
+                          <input id="{{i.id}}" class="radio isHidden" name="radio_intro" type="radio" value="{{i.id}}">
+                          <label for="{{i.id}}" class="radio-image-container">
+                            <img class="radio-image" src="{{i.preview.url}}" alt="Introduction1 Image">
                           </label>
                         </div>
-                        <div class="filterDiv Introduction">
-                          <input id="radio_2" class="radio isHidden" name="radio_a" type="radio" value="Introduction2">
-                          <label for="radio_2" class="radio-image-container">
-                            <img class="radio-image" src="{% static 'templates/about2.png' %}" alt="Introduction1 Image">
-                          </label>
-                        </div>
-                        <div class="filterDiv Introduction">
-                          <input id="radio_3" class="radio isHidden" name="radio_a" type="radio" value="Introduction3">
-                          <label for="radio_3" class="radio-image-container">
-                            <img class="radio-image" src="{% static 'templates/about3.png' %}" alt="Introduction1 Image">
-                          </label>
-                        </div>
+                        {% endfor %}
                         <br />
                         <div style="margin-top: 40px;" class="filterDiv Introduction mb-3">
                           <textarea name="" id="" cols="70" rows="3">
                              Write about your self in this box:
                            </textarea>
                         </div>
+                        {% for i in education_components %}
                         <div class="filterDiv Education">
-                          <input id="radio_4" class="radio isHidden" name="radio_edu" type="radio" value="Education1">
-                          <label for="radio_4" class="label radio-image-container">
-                            <img class="radio-image" src="{% static 'templates/edu1.png' %}" alt="Education Image">
+                          <input id="{{i.id}}" class="radio isHidden" name="radio_edu" type="radio" value="{{i.id}}">
+                          <label for="{{i.id}}" class="label radio-image-container">
+                            <img class="radio-image" src="{{i.preview.url}}" alt="Education Image">
                           </label>
                         </div>
-                        <div class="filterDiv Education">
-                          <input id="radio_5" class="radio isHidden" name="radio_edu" type="radio" value="Education2">
-                          <label for="radio_5" class="label radio-image-container">
-                            <img class="radio-image" src="{% static 'templates/edu2.png' %}" alt="Introduction1 Image">
-                          </label>
-                        </div>
-                        <div class="filterDiv Education">
-                          <input id="radio_6" class="radio isHidden" name="radio_edu" type="radio" value="Education3">
-                          <label for="radio_6" class="label radio-image-container">
-                            <img class="radio-image" src="{% static 'templates/edu3.png' %}" alt="Introduction1 Image">
-                          </label>
-                        </div>
+                        {% endfor %}
+                        {% for i in work_components %}
                         <div class="filterDiv WorkExperience">
-                          <input id="radio_7" class="radio isHidden" name="radio_work" type="radio" value="Introduction1">
-                          <label for="radio_7" class="label radio-image-container">
-                            <img class="radio-image" src="{% static 'templates/work1.png' %}" alt="Introduction1 Image">
+                          <input id="{{i.id}}" class="radio isHidden" name="radio_work" type="radio" value="{{i.id}}">
+                          <label for="{{i.id}}" class="label radio-image-container">
+                            <img class="radio-image" src="{{i.preview.url}}" alt="Introduction1 Image">
                           </label>
                         </div>
-                        <div class="filterDiv WorkExperience">
-                          <input id="radio_8" class="radio isHidden" name="radio_work" type="radio" value="Introduction1">
-                          <label for="radio_8" class="label radio-image-container">
-                            <img class="radio-image" src="{% static 'templates/work2.png' %}" alt="Introduction1 Image">
-                          </label>
-                        </div>
-                        <div class="filterDiv WorkExperience">
-                          <input id="radio_9" class="radio isHidden" name="radio_work" type="radio" value="Introduction1">
-                          <label for="radio_9" class="label radio-image-container">
-                            <img class="radio-image" src="{% static 'templates/work3.png' %}" alt="Introduction1 Image">
-                          </label>
-                        </div>
+                        {% endfor %}
+                        {% for i in portfolio_components %}
                         <div class="filterDiv Portfolio">
-                          <input id="radio_10" class="radio isHidden" name="radio_port" type="radio" value="Introduction1">
-                          <label for="radio_10" class="label radio-image-container">
-                            <img class="radio-image" src="{% static 'templates/port1.png' %}" alt="Introduction1 Image">
+                          <input id="{{i.id}}" class="radio isHidden" name="radio_port" type="radio" value="{{i.id}}">
+                          <label for="{{i.id}}" class="label radio-image-container">
+                            <img class="radio-image" src="{{i.preview.url}}" alt="Introduction1 Image">
                           </label>
                         </div>
-                        <div class="filterDiv Portfolio">
-                          <input id="radio_11" class="radio isHidden" name="radio_port" type="radio" value="Introduction1">
-                          <label for="radio_11" class="label radio-image-container">
-                            <img class="radio-image" src="{% static 'templates/port2.png' %}" alt="Introduction1 Image">
-                          </label>
-                        </div>
-                        <div class="filterDiv Portfolio">
-                          <input id="radio_12" class="radio isHidden" name="radio_port" type="radio" value="Introduction1">
-                          <label for="radio_12" class="label radio-image-container">
-                            <img class="radio-image" src="{% static 'templates/port3.png' %}" alt="Introduction1 Image">
-                          </label>
-                        </div>
+                        {% endfor %}
+                        {% for i in skills_components %}
                         <div class="filterDiv Skills">
-                          <input id="radio_13" class="radio isHidden" name="radio_skill" type="radio" value="Introduction1">
-                          <label for="radio_13" class="label radio-image-container">
-                            <img class="radio-image" src="{% static 'templates/skill1.png' %}" alt="Introduction1 Image">
+                          <input id="{{i.id}}" class="radio isHidden" name="radio_skill" type="radio" value="{{i.id}}">
+                          <label for="{{i.id}}" class="label radio-image-container">
+                            <img class="radio-image" src="{{i.preview.url}}" alt="Introduction1 Image">
                           </label>
                         </div>
-                        <div class="filterDiv Skills">
-                          <input id="radio_14" class="radio isHidden" name="radio_skill" type="radio" value="Introduction1">
-                          <label for="radio_14" class="label radio-image-container">
-                            <img class="radio-image" src="{% static 'templates/skill2.png' %}" alt="Introduction1 Image">
-                          </label>
-                        </div>
-                        <div class="filterDiv Skills">
-                          <input id="radio_15" class="radio isHidden" name="radio_skill" type="radio" value="Introduction1">
-                          <label for="radio_15" class="label radio-image-container">
-                            <img class="radio-image" src="{% static 'templates/skill3.png' %}" alt="Introduction1 Image">
-                          </label>
-                        </div>
+                        {% endfor %}
                       </div>
 
                     </div>
@@ -363,7 +313,14 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-title mt-2">Preview</h3>
-            
+            <br>
+            <br>
+            <br>
+            {% autoescape off %}
+            {% for i in web_components %}
+              {{i.html}}
+            {% endfor %}
+            {% endautoescape %}
           </div>
         </section>
       <!-- /.content -->
