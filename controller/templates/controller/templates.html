@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design</title>
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+
+
+  <style>
+    .filterDiv {
+      float: left;
+      color: #ffffff;
+      line-height: 100px;
+      text-align: center;
+      margin: 2px;
+      display: none;
+      /* Hidden by default */
+    }
+
+    /* The "show" class is added to the filtered elements */
+    .show {
+      display: block;
+    }
+
+    .isHidden {
+      display: none;
+      /* hide radio buttons */
+    }
+
+    .label {
+      display: inline-block;
+      background-color: red;
+      width: 120px;
+      height: 120px;
+      padding: 5px 10px;
+    }
+
+    .radio:checked+.label {
+      /* target next sibling (+) label */
+      background-color: blue;
+    }
+  </style>
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <!-- Site wrapper -->
+  <div class="wrapper">
+    <!-- Navbar -->
+
+    <!-- Preloader -->
+    <div class="preloader flex-column justify-content-center align-items-center">
+      <img class="animation__wobble" src="dist/img/Webfolio.png" alt="Webfoliologo" height="60" width="60">
+    </div>
+
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-dark">
+      <!-- Left navbar links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="#" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="#" class="nav-link">Contact</a>
+        </li>
+      </ul>
+
+      <!-- Right navbar links -->
+      <ul class="navbar-nav ml-auto">
+        <!-- Notifications Dropdown Menu -->
+        <li class="nav-item">
+          <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+            <i class="fas fa-expand-arrows-alt"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+            <i class="fas fa-th-large"></i>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <!-- Brand Logo -->
+      <a href="dashboard.html" class="brand-link">
+        <img src="dist/img/Webfolio.png" alt="Webfolio Logo" class="brand-image img-circle elevation-3"
+          style="opacity: .8">
+        <span class="brand-text font-weight-light">Webfolio</span>
+      </a>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+            <li class="nav-item">
+              <a href="dashboard.html" class="nav-link ">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  Dashboard
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="information.html" class="nav-link ">
+                <i class="nav-icon fas fa-edit"></i>
+                <p>
+                  Information
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="education.html" class="nav-link">
+                <i class="nav-icon fas fa-table"></i>
+                <p>
+                  Education
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="WorkExperience.html" class="nav-link">
+                <i class="nav-icon fas fa-book"></i>
+                <p>
+                  Work Experience
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="portfolio.html" class="nav-link ">
+                <i class="nav-icon far fa-image"></i>
+                <p>
+                  Portfolio
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="templates.html" class="nav-link active">
+                <i class="nav-icon far fa-plus-square"></i>
+                <p>
+                  Design
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-search"></i>
+                <p>
+                  Feedback
+                </p>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+      </div>
+      <!-- /.sidebar -->
+    </aside>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Design</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Design</li>
+              </ol>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
+        <!-- Default box -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title mt-2">Design</h3>
+            <div class="card-tools">
+              <a href="add-portfolio.html" type="button" class="btn btn-success">
+                <i class="fas fa-plus mr-1"></i>
+                Add
+              </a>
+            </div>
+          </div>
+
+          <div class="card-body p-0">
+            <form action="">
+              <div class="ml-3 mt-3">
+                Here you can choose your preferd sections:
+              </div>
+              <button type="button" class="btn btn-success ml-3  mt-3 mb-5" data-toggle="modal" data-target="#modal-xl">
+                choose
+              </button>
+              <!-- /.container-fluid -->
+              <!-- /.modal -->
+
+              <div class="modal fade" id="modal-xl">
+                <div class="modal-dialog modal-xl">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title">Choose Section</h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+
+                      <!-- Control buttons -->
+
+                      <div class="mb-3">Select a section and choose your preferd design</div>
+                      <select class="mb-5 pr-5" onchange="filterSelection(this.value)">
+                        <option value="">Select one</option>
+                        <option value="Introduction">Introduction</option>
+                        <option value="Education">Education</option>
+                        <option value="WorkExperience">Work Experience</option>
+                        <option value="Portfolio">Portfolio</option>
+                        <option value="Skills">Skills</option>
+                      </select>
+                      <br>
+
+                      <!-- The filterable elements. Note that some have multiple class names (this can be used if they belong to multiple categories) -->
+                      <div class="container">
+
+                        <div class="filterDiv Introduction">
+                          <input id="radio_1" class="radio isHidden" name="radio_a" type="radio" value="Introduction1">
+                          <label for="radio_1" class="label">Introduction1</label>
+                        </div>
+                        <div class="filterDiv Introduction">
+                          <input id="radio_2" class="radio isHidden" name="radio_a" type="radio" value="Introduction2">
+                          <label for="radio_2" class="label">Introduction2</label>
+                        </div>
+                        <div class="filterDiv Introduction">
+                          <input id="radio_3" class="radio isHidden" name="radio_a" type="radio" value="Introduction3">
+                          <label for="radio_3" class="label">Introduction3</label>
+                        </div>
+                        <br />
+                        <div class="filterDiv Introduction mb-3">
+                          <textarea name="" id="" cols="100" rows="5">
+                             Write about your self in this box:
+                           </textarea>
+                        </div>
+
+                        <div class="filterDiv Education">
+                          <input id="radio_4" class="radio isHidden" name="radio_a" type="radio" value="Education1">
+                          <label for="radio_4" class="label">Education1</label>
+                        </div>
+                        <div class="filterDiv Education">
+                          <input id="radio_5" class="radio isHidden" name="radio_a" type="radio" value="Education2">
+                          <label for="radio_5" class="label">Education2</label>
+                        </div>
+                        <div class="filterDiv Education">
+                          <input id="radio_6" class="radio isHidden" name="radio_a" type="radio" value="Education3">
+                          <label for="radio_6" class="label">Education3</label>
+                        </div>
+                        <div class="filterDiv WorkExperience">
+                          <input id="radio_7" class="radio isHidden" name="radio_a" type="radio"
+                            value="WorkExperience1">
+                          <label for="radio_7" class="label">Education1</label>
+                        </div>
+                        <div class="filterDiv WorkExperience">
+                          <input id="radio_8" class="radio isHidden" name="radio_a" type="radio"
+                            value="WorkExperience2">
+                          <label for="radio_8" class="label">Education2</label>
+                        </div>
+                        <div class="filterDiv WorkExperience">
+                          <input id="radio_9" class="radio isHidden" name="radio_a" type="radio"
+                            value="WorkExperience3">
+                          <label for="radio_9" class="label">Education3</label>
+                        </div>
+                        <div class="filterDiv Portfolio">
+                          <input id="radio_10" class="radio isHidden" name="radio_a" type="radio" value="Portfolio1">
+                          <label for="radio_10" class="label">Portfolio1</label>
+                        </div>
+                        <div class="filterDiv Portfolio">
+                          <input id="radio_11" class="radio isHidden" name="radio_a" type="radio" value="Portfolio2">
+                          <label for="radio_11" class="label">Portfolio2</label>
+                        </div>
+                        <div class="filterDiv Portfolio">
+                          <input id="radio_12" class="radio isHidden" name="radio_a" type="radio" value="Portfolio3">
+                          <label for="radio_12" class="label">Portfolio3</label>
+                        </div>
+                        <div class="filterDiv Skills">
+                          <input id="radio_13" class="radio isHidden" name="radio_a" type="radio" value="Skills1">
+                          <label for="radio_13" class="label">Skills1</label>
+                        </div>
+                        <div class="filterDiv Skills">
+                          <input id="radio_14" class="radio isHidden" name="radio_a" type="radio" value="Skills2">
+                          <label for="radio_14" class="label">Skills2</label>
+                        </div>
+                        <div class="filterDiv Skills">
+                          <input id="radio_15" class="radio isHidden" name="radio_a" type="radio" value="Skills3">
+                          <label for="radio_15" class="label">Skills3</label>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                  </div>
+                  <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+              </div>
+              <!-- /.modal -->
+
+            </form>
+
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+      <strong>Group 12 &copy; 2023 <a>Webfolio</a></strong>
+      <div class="float-right d-none d-sm-inline-block">
+        <b>Version</b> 1.1
+      </div>
+    </footer>
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+  </div>
+  <!-- ./wrapper -->
+
+  <!-- jQuery -->
+  <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+  <!-- Bootstrap 4 -->
+  <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <!-- SweetAlert2 -->
+  <script src="{% static 'plugins/sweetalert2/sweetalert2.min.js' %}"></script>
+  <!-- Toastr -->
+  <script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
+  <!-- AdminLTE App -->
+  <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="{% static 'dist/js/demo.js' %}"></script>
+  <script>
+    $(function () {
+      var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+      });
+
+      $('.swalDefaultSuccess').click(function () {
+        Toast.fire({
+          icon: 'success',
+          title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+        })
+      });
+      $('.swalDefaultInfo').click(function () {
+        Toast.fire({
+          icon: 'info',
+          title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+        })
+      });
+      $('.swalDefaultError').click(function () {
+        Toast.fire({
+          icon: 'error',
+          title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+        })
+      });
+      $('.swalDefaultWarning').click(function () {
+        Toast.fire({
+          icon: 'warning',
+          title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+        })
+      });
+      $('.swalDefaultQuestion').click(function () {
+        Toast.fire({
+          icon: 'question',
+          title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+        })
+      });
+
+      $('.toastrDefaultSuccess').click(function () {
+        toastr.success('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+      });
+      $('.toastrDefaultInfo').click(function () {
+        toastr.info('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+      });
+      $('.toastrDefaultError').click(function () {
+        toastr.error('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+      });
+      $('.toastrDefaultWarning').click(function () {
+        toastr.warning('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+      });
+
+      $('.toastsDefaultDefault').click(function () {
+        $(document).Toasts('create', {
+          title: 'Toast Title',
+          body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+        })
+      });
+      $('.toastsDefaultTopLeft').click(function () {
+        $(document).Toasts('create', {
+          title: 'Toast Title',
+          position: 'topLeft',
+          body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+        })
+      });
+      $('.toastsDefaultBottomRight').click(function () {
+        $(document).Toasts('create', {
+          title: 'Toast Title',
+          position: 'bottomRight',
+          body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+        })
+      });
+      $('.toastsDefaultBottomLeft').click(function () {
+        $(document).Toasts('create', {
+          title: 'Toast Title',
+          position: 'bottomLeft',
+          body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+        })
+      });
+      $('.toastsDefaultAutohide').click(function () {
+        $(document).Toasts('create', {
+          title: 'Toast Title',
+          autohide: true,
+          delay: 750,
+          body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+        })
+      });
+      $('.toastsDefaultNotFixed').click(function () {
+        $(document).Toasts('create', {
+          title: 'Toast Title',
+          fixed: false,
+          body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+        })
+      });
+      $('.toastsDefaultFull').click(function () {
+        $(document).Toasts('create', {
+          body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+          title: 'Toast Title',
+          subtitle: 'Subtitle',
+          icon: 'fas fa-envelope fa-lg',
+        })
+      });
+      $('.toastsDefaultFullImage').click(function () {
+        $(document).Toasts('create', {
+          body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+          title: 'Toast Title',
+          subtitle: 'Subtitle',
+          image: '../../dist/img/user3-128x128.jpg',
+          imageAlt: 'User Picture',
+        })
+      });
+      $('.toastsDefaultSuccess').click(function () {
+        $(document).Toasts('create', {
+          class: 'bg-success',
+          title: 'Toast Title',
+          subtitle: 'Subtitle',
+          body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+        })
+      });
+      $('.toastsDefaultInfo').click(function () {
+        $(document).Toasts('create', {
+          class: 'bg-info',
+          title: 'Toast Title',
+          subtitle: 'Subtitle',
+          body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+        })
+      });
+      $('.toastsDefaultWarning').click(function () {
+        $(document).Toasts('create', {
+          class: 'bg-warning',
+          title: 'Toast Title',
+          subtitle: 'Subtitle',
+          body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+        })
+      });
+      $('.toastsDefaultDanger').click(function () {
+        $(document).Toasts('create', {
+          class: 'bg-danger',
+          title: 'Toast Title',
+          subtitle: 'Subtitle',
+          body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+        })
+      });
+      $('.toastsDefaultMaroon').click(function () {
+        $(document).Toasts('create', {
+          class: 'bg-maroon',
+          title: 'Toast Title',
+          subtitle: 'Subtitle',
+          body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+        })
+      });
+    });
+
+
+    // filterSelection("all")
+
+    function filterSelection(c) {
+      var x, i;
+      x = document.getElementsByClassName("filterDiv");
+      if (c == "all") c = "";
+      // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
+      for (i = 0; i < x.length; i++) {
+        w3RemoveClass(x[i], "show");
+        if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+      }
+    }
+
+    // Show filtered elements
+    function w3AddClass(element, name) {
+      var i, arr1, arr2;
+      arr1 = element.className.split(" ");
+      arr2 = name.split(" ");
+      for (i = 0; i < arr2.length; i++) {
+        if (arr1.indexOf(arr2[i]) == -1) {
+          element.className += " " + arr2[i];
+        }
+      }
+    }
+
+    // Hide elements that are not selected
+    function w3RemoveClass(element, name) {
+      var i, arr1, arr2;
+      arr1 = element.className.split(" ");
+      arr2 = name.split(" ");
+      for (i = 0; i < arr2.length; i++) {
+        while (arr1.indexOf(arr2[i]) > -1) {
+          arr1.splice(arr1.indexOf(arr2[i]), 1);
+        }
+      }
+      element.className = arr1.join(" ");
+    }
+
+    // Add active class to the current control button (highlight it)
+    var btnContainer = document.getElementById("myBtnContainer");
+    var btns = btnContainer.getElementsByClassName("btn");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener("click", function () {
+        var current = document.getElementsByClassName("active");
+        current[0].className = current[0].className.replace(" active", "");
+        this.className += " active";
+      });
+    }
+
+  </script>
+
+</body>
+
+</html>
