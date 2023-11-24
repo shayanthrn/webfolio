@@ -363,7 +363,6 @@ class design(View):
             portfolio_components = PortfolioComponent.objects.all()
             skills_components = SkillsComponent.objects.all()
             website = Website.objects.filter(user=request.user).first()
-            print(website.components.all())
             context = {
                 'intro_components': intro_components,
                 'education_components': education_components,
@@ -449,6 +448,7 @@ class design(View):
             return redirect("/design/")
         else:
            return redirect("/login/")
+        
 class feedback(View):
     def get(self,request):
         if request.user.is_authenticated:
