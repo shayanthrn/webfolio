@@ -253,11 +253,6 @@
                         </div>
                         {% endfor %}
                         <br />
-                        <div style="margin-top: 40px;" class="filterDiv Introduction mb-3">
-                          <textarea name="" id="" cols="70" rows="3">
-                             Write about your self in this box:
-                           </textarea>
-                        </div>
                         {% for i in education_components %}
                         <div class="filterDiv Education">
                           <input id="{{i.id}}" class="radio isHidden" name="radio_edu" type="radio" value="{{i.id}}">
@@ -318,7 +313,7 @@
             <br>
             {% autoescape off %}
             {% for i in web_components %}
-              {{i.html}}
+              {{i}}
             {% endfor %}
             {% endautoescape %}
           </div>

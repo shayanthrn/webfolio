@@ -4,6 +4,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.views import View
 from django.apps import apps
 from .models import *
+from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import login, authenticate
 
 
@@ -66,9 +67,6 @@ class importv(View):
                 response = requests.get(api_endpoint,
                             params={'url': linkedin_url,'skills': 'include'},
                             headers=headers)
-                # a = response.text.replace("\"", ";")
-                # b = a.replace("\'","\"")
-                # c = b.replace(";","\'")
                 User.objects.filter(username=request.user.username).update(linkedin_info=response.text)
                 return render(request, 'controller/dashboard.html',context={"imported":"1"})
             else:
@@ -363,13 +361,96 @@ class design(View):
             portfolio_components = PortfolioComponent.objects.all()
             skills_components = SkillsComponent.objects.all()
             website = Website.objects.filter(user=request.user).first()
+            web_components = website.components.all()
+            components = []
+            for comp in web_components:
+                website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
+                content_type = website_component_order.content_type
+                if(content_type == "controller | intro component"):
+                    intro_comp = IntroComponent.objects.filter(id=website_component_order.component.id).first()
+                    html = intro_comp.html
+                    html = html.replace("^^firstname^^",request.user.first_name)
+                    html = html.replace("^^lastname^^",request.user.last_name)
+                    html = html.replace("^^description^^",request.user.description)
+                    html = html.replace("^^theme^^",intro_comp.theme)
+                    html = html.replace("^^email^^",request.user.email)
+                    html = html.replace("^^jobtitle^^",request.user.job_title)
+                    components.append(html)
+                if(content_type == "controller | education component"):
+                    educations = Education.objects.filter(user=request.user)
+                    edu_comp = EducationComponent.objects.filter(id=website_component_order.component.id).first()
+                    html = edu_comp.html
+                    iterable = ""
+                    for edu in educations:
+                        temp = edu_comp.iterable_html
+                        temp = temp.replace("^^theme^^",edu_comp.theme)
+                        temp = temp.replace("^^school^^",edu.school)
+                        temp = temp.replace("^^degree^^",edu.degree)
+                        temp = temp.replace("^^grade^^",edu.grade)
+                        temp = temp.replace("^^description^^",edu.description)
+                        temp = temp.replace("^^field_of_study^^",edu.field_of_study)
+                        temp = temp.replace("^^start_date^^",str(edu.start_date))
+                        temp = temp.replace("^^end_date^^",str(edu.end_date))
+                        iterable += temp
+                    html = html.replace("^^iterate^^",iterable)
+                    components.append(html)
+                if(content_type == "controller | work component"):
+                    works = Work.objects.filter(user=request.user)
+                    work_comp = WorkComponent.objects.filter(id=website_component_order.component.id).first()
+                    html = work_comp.html
+                    iterable = ""
+                    for work in works:
+                        temp = work_comp.iterable_html
+                        temp = temp.replace("^^theme^^",work_comp.theme)
+                        temp = temp.replace("^^company_name^^",work.company_name)
+                        temp = temp.replace("^^title^^",work.title)
+                        temp = temp.replace("^^location^^",work.location)
+                        temp = temp.replace("^^employment_type^^",work.employment_type)
+                        temp = temp.replace("^^description^^",work.description)
+                        temp = temp.replace("^^start_date^^",str(work.start_date))
+                        temp = temp.replace("^^end_date^^",str(work.end_date))
+                        iterable += temp
+                    html = html.replace("^^iterate^^",iterable)
+                    components.append(html)
+                if(content_type == "controller | portfolio component"):
+                    portfolios = Portfolio.objects.filter(user=request.user)
+                    port_comp = PortfolioComponent.objects.filter(id=website_component_order.component.id).first()
+                    html = port_comp.html
+                    iterable = ""
+                    for portfolio in portfolios:
+                        temp = port_comp.iterable_html
+                        temp = temp.replace("^^theme^^",port_comp.theme)
+                        temp = temp.replace("^^company_name^^",portfolio.company_name)
+                        temp = temp.replace("^^name^^",portfolio.name)
+                        temp = temp.replace("^^thumbnail^^",str(portfolio.thumbnail))
+                        temp = temp.replace("^^description^^",portfolio.description)
+                        temp = temp.replace("^^start_date^^",str(portfolio.start_date))
+                        temp = temp.replace("^^end_date^^",str(portfolio.end_date))
+                        iterable += temp
+                    html = html.replace("^^iterate^^",iterable)
+                    components.append(html)
+                if(content_type == "controller | skills component"):
+                    works = Work.objects.filter(user=request.user)
+                    skills = []
+                    for work in works:
+                        skills += work.skills.split(",")
+                    skill_comp = SkillsComponent.objects.filter(id=website_component_order.component.id).first()
+                    html = skill_comp.html
+                    iterable = ""
+                    for skill in skills:
+                        temp = skill_comp.iterable_html
+                        temp = temp.replace("^^skill^^",skill)
+                        temp = temp.replace("^^theme^^",skill_comp.theme)
+                        iterable += temp
+                    html = html.replace("^^iterate^^",iterable)
+                    components.append(html)
             context = {
                 'intro_components': intro_components,
                 'education_components': education_components,
                 'work_components': work_components,
                 'portfolio_components': portfolio_components,
                 'skills_components': skills_components,
-                'web_components' : website.components.all(),
+                'web_components' : components,
             }
 
             return render(request, 'controller/design.html',context=context)
@@ -378,59 +459,43 @@ class design(View):
     def post(self,request):
         if request.user.is_authenticated:
             website = Website.objects.filter(user=request.user).first()
-            order = 1
             if 'radio_intro' in request.POST:
                 component = get_object_or_404(IntroComponent, pk=request.POST['radio_intro'])
                 # Create or get the WebsiteComponentOrder
                 website_component_order, created = WebsiteComponentOrder.objects.get_or_create(
                     website=website,
                     component=component,
-                    defaults={'order': order}
+                    content_type=ContentType.objects.get_for_model(component)
                 )
 
-                # If the order already exists, update it
-                if not created:
-                    website_component_order.order = order
-                    website_component_order.save()
             if 'radio_edu' in request.POST:
                 component = get_object_or_404(EducationComponent, pk=request.POST['radio_edu'])
                 # Create or get the WebsiteComponentOrder
                 website_component_order, created = WebsiteComponentOrder.objects.get_or_create(
                     website=website,
                     component=component,
-                    defaults={'order': order}
+                    content_type=ContentType.objects.get_for_model(component)
                 )
 
-                # If the order already exists, update it
-                if not created:
-                    website_component_order.order = order
-                    website_component_order.save()
             if 'radio_work' in request.POST:
                 component = get_object_or_404(WorkComponent, pk=request.POST['radio_work'])
                 # Create or get the WebsiteComponentOrder
                 website_component_order, created = WebsiteComponentOrder.objects.get_or_create(
                     website=website,
                     component=component,
-                    defaults={'order': order}
+                    content_type=ContentType.objects.get_for_model(component)
                 )
 
-                # If the order already exists, update it
-                if not created:
-                    website_component_order.order = order
-                    website_component_order.save()
             if 'radio_port' in request.POST:
                 component = get_object_or_404(PortfolioComponent, pk=request.POST['radio_port'])
                 # Create or get the WebsiteComponentOrder
                 website_component_order, created = WebsiteComponentOrder.objects.get_or_create(
                     website=website,
                     component=component,
-                    defaults={'order': order}
+                    content_type=ContentType.objects.get_for_model(component)
                 )
 
-                # If the order already exists, update it
-                if not created:
-                    website_component_order.order = order
-                    website_component_order.save()
+    
             
             if 'radio_skill' in request.POST:
                 component = get_object_or_404(SkillsComponent, pk=request.POST['radio_skill'])
@@ -438,13 +503,9 @@ class design(View):
                 website_component_order, created = WebsiteComponentOrder.objects.get_or_create(
                     website=website,
                     component=component,
-                    defaults={'order': order}
+                    content_type=ContentType.objects.get_for_model(component)
                 )
 
-                # If the order already exists, update it
-                if not created:
-                    website_component_order.order = order
-                    website_component_order.save()
             return redirect("/design/")
         else:
            return redirect("/login/")

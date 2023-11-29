@@ -6,7 +6,9 @@ class User(AbstractUser):
     username = models.EmailField(unique=True, null=True)
     linkedin_info = models.TextField()
     linkedin_url = models.URLField()
+    job_title = models.CharField(max_length=255)
     email = models.EmailField(unique=True, null=True)
+    description = models.TextField()
     is_staff = models.BooleanField(default=False,null=True)
     is_active = models.BooleanField(default=True, null=True)
     date_joined = models.DateTimeField(default=timezone.now, null=True)
@@ -80,7 +82,7 @@ class Component(models.Model):
 
 
 class IntroComponent(Component):
-    description = models.TextField()
+    pass
 
 
 class IterableComponent(Component):
@@ -113,10 +115,7 @@ class Website(models.Model):
 class WebsiteComponentOrder(models.Model):
     website = models.ForeignKey(Website, on_delete=models.CASCADE)
     component = models.ForeignKey(Component, on_delete=models.CASCADE)
-    order = models.PositiveIntegerField()
-
-    class Meta:
-        ordering = ['order']
+    content_type = models.CharField(max_length=20)
 
     def __str__(self):
-        return f"Order {self.order}: {self.component}"
+        return f"{self.component}"
