@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %} 
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Feedback</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="card card-outline card-primary">
+    <div class="text-center">
+      <div>
+        <img src="{% static 'dist/img/Webfolio.png' %}" alt="Webfolio Logo" class="img-circle" style="opacity: .8">
+      </div>
+    </div>
+    <div class="card-body">
+      {% if counter == 0 %}
+        <form action="/feedback/" method="post">
+          {% csrf_token %}
+          <label for="rating">Rate your success (1-10):</label>
+          <input type="number" id="rating" name="rating" min="1" max="10" required>
+          <p>Help us to improve our recommendation by your feedback, please rate your success after using our service between 1 to 10.</p>
+          <button class="btn btn-success ml-3  mt-3 mb-5" type="submit">Submit</button>
+        </form>
+      {% else %}
+        You need to complete your design first!
+      {% endif %}
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'dist/js/adminlte.min.js' %}"></script>
+</body>
+</html>

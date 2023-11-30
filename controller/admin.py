@@ -15,6 +15,7 @@ Login_site = LoginArea(name='Login')
 Login_site.register(User)
 
 admin.site.register(Education)
+admin.site.register(Feedback)
 admin.site.register(Portfolio)
 admin.site.register(Work)
 admin.site.register(IntroComponent)

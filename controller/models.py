@@ -18,6 +18,14 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
     
+class Feedback(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    rating = models.IntegerField(null=True)
+    design = models.CharField(max_length=15,null=True)
+
+    def __str__(self):
+        return f"{self.user.username}'s rating - {self.rating}"
+    
 class Education(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     school = models.CharField(max_length=255)

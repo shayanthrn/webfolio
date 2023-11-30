@@ -721,6 +721,41 @@ class changetheme(View):
 class feedback(View):
     def get(self,request):
         if request.user.is_authenticated:
-            return render(request, 'controller/portfolio.html')
+            website = Website.objects.filter(user=request.user).first()
+            web_components = website.components.all()
+            counter = 5
+            for comp in web_components:
+                website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
+                content_type = website_component_order.content_type
+                if(content_type == "controller | intro component"):
+                    counter -= 1
+                if(content_type == "controller | education component"):
+                    counter -= 1
+                if(content_type == "controller | work component"):
+                    counter -= 1
+                if(content_type == "controller | portfolio component"):
+                    counter -= 1
+                if(content_type == "controller | skills component"):
+                    counter -= 1
+            print(counter)
+            return render(request, 'controller/feedback.html',context={"counter":counter})
         else:
             return redirect("/login/")
+    def post(self,request):
+        rating = int(request.POST.get('rating'))
+        website = Website.objects.filter(user=request.user).first()
+        web_components = website.components.all()
+        design = ""
+        if 1 <= rating <= 10:
+            for comp in web_components:
+                design += str(comp.id) + ","
+            design = design[:-1]
+            
+            feedback, created = Feedback.objects.get_or_create(user=request.user)
+            feedback.rating = rating
+            feedback.design = design
+            feedback.save()
+
+            return render(request, 'controller/confirm.html')  # Redirect to a success page
+        else:
+            return HttpResponse("Invalid rating. Please provide a rating between 1 and 10.")
