@@ -26,7 +26,7 @@ urlpatterns = [
     path('design/',design.as_view()), #tested
     path('design/delete/<str:id>/',deletedesign.as_view()), 
     path('design/changetheme/<str:id>/',changetheme.as_view()),
-    path('website/',website.as_view()),
+    path('website/<str:id>/',website.as_view()),
     path('export/',export.as_view()),
     path('feedback/',feedback.as_view()), #not started yet
 ]
