@@ -366,16 +366,17 @@ class design(View):
             for comp in web_components:
                 website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
                 content_type = website_component_order.content_type
+                theme = website_component_order.theme
                 if(content_type == "controller | intro component"):
                     intro_comp = IntroComponent.objects.filter(id=website_component_order.component.id).first()
                     html = intro_comp.html
                     html = html.replace("^^firstname^^",request.user.first_name)
                     html = html.replace("^^lastname^^",request.user.last_name)
                     html = html.replace("^^description^^",request.user.description)
-                    html = html.replace("^^theme^^",intro_comp.theme)
+                    html = html.replace("^^theme^^",theme)
                     html = html.replace("^^email^^",request.user.email)
                     html = html.replace("^^jobtitle^^",request.user.job_title)
-                    components.append(html)
+                    components.append({"html":html,"id":comp.id,"theme":theme})
                 if(content_type == "controller | education component"):
                     educations = Education.objects.filter(user=request.user)
                     edu_comp = EducationComponent.objects.filter(id=website_component_order.component.id).first()
@@ -383,7 +384,7 @@ class design(View):
                     iterable = ""
                     for edu in educations:
                         temp = edu_comp.iterable_html
-                        temp = temp.replace("^^theme^^",edu_comp.theme)
+                        temp = temp.replace("^^theme^^",theme)
                         temp = temp.replace("^^school^^",edu.school)
                         temp = temp.replace("^^degree^^",edu.degree)
                         temp = temp.replace("^^grade^^",edu.grade)
@@ -393,7 +394,7 @@ class design(View):
                         temp = temp.replace("^^end_date^^",str(edu.end_date))
                         iterable += temp
                     html = html.replace("^^iterate^^",iterable)
-                    components.append(html)
+                    components.append({"html":html,"id":comp.id,"theme":theme})
                 if(content_type == "controller | work component"):
                     works = Work.objects.filter(user=request.user)
                     work_comp = WorkComponent.objects.filter(id=website_component_order.component.id).first()
@@ -401,7 +402,7 @@ class design(View):
                     iterable = ""
                     for work in works:
                         temp = work_comp.iterable_html
-                        temp = temp.replace("^^theme^^",work_comp.theme)
+                        temp = temp.replace("^^theme^^",theme)
                         temp = temp.replace("^^company_name^^",work.company_name)
                         temp = temp.replace("^^title^^",work.title)
                         temp = temp.replace("^^location^^",work.location)
@@ -411,7 +412,7 @@ class design(View):
                         temp = temp.replace("^^end_date^^",str(work.end_date))
                         iterable += temp
                     html = html.replace("^^iterate^^",iterable)
-                    components.append(html)
+                    components.append({"html":html,"id":comp.id,"theme":theme})
                 if(content_type == "controller | portfolio component"):
                     portfolios = Portfolio.objects.filter(user=request.user)
                     port_comp = PortfolioComponent.objects.filter(id=website_component_order.component.id).first()
@@ -419,7 +420,7 @@ class design(View):
                     iterable = ""
                     for portfolio in portfolios:
                         temp = port_comp.iterable_html
-                        temp = temp.replace("^^theme^^",port_comp.theme)
+                        temp = temp.replace("^^theme^^",theme)
                         temp = temp.replace("^^company_name^^",portfolio.company_name)
                         temp = temp.replace("^^name^^",portfolio.name)
                         temp = temp.replace("^^thumbnail^^",str(portfolio.thumbnail))
@@ -428,7 +429,7 @@ class design(View):
                         temp = temp.replace("^^end_date^^",str(portfolio.end_date))
                         iterable += temp
                     html = html.replace("^^iterate^^",iterable)
-                    components.append(html)
+                    components.append({"html":html,"id":comp.id,"theme":theme})
                 if(content_type == "controller | skills component"):
                     works = Work.objects.filter(user=request.user)
                     skills = []
@@ -440,10 +441,10 @@ class design(View):
                     for skill in skills:
                         temp = skill_comp.iterable_html
                         temp = temp.replace("^^skill^^",skill)
-                        temp = temp.replace("^^theme^^",skill_comp.theme)
+                        temp = temp.replace("^^theme^^",theme)
                         iterable += temp
                     html = html.replace("^^iterate^^",iterable)
-                    components.append(html)
+                    components.append({"html":html,"id":comp.id,"theme":theme})
             context = {
                 'intro_components': intro_components,
                 'education_components': education_components,
@@ -509,7 +510,26 @@ class design(View):
             return redirect("/design/")
         else:
            return redirect("/login/")
-        
+
+class deletedesign(View):
+    def get(self,request,id):
+        if request.user.is_authenticated:
+            website_component_order = WebsiteComponentOrder.objects.get(website__user=request.user, component_id=id)
+            website_component_order.delete()
+            return redirect("/design/")
+        else:
+            return redirect("/login/")
+
+class changetheme(View):
+    def get(self,request,id):
+        if request.user.is_authenticated:
+            website_component_order = WebsiteComponentOrder.objects.get(website__user=request.user, component_id=id)
+            website_component_order.theme = "#" + request.GET.get('theme')
+            website_component_order.save()
+            return redirect("/design/")
+        else:
+            return redirect("/login/")
+
 class feedback(View):
     def get(self,request):
         if request.user.is_authenticated:

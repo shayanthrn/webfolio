@@ -313,11 +313,24 @@
             <br>
             {% autoescape off %}
             {% for i in web_components %}
-              {{i}}
+              <a href="/design/delete/{{i.id}}/" class="btn btn-danger ml-3  mt-3 mb-5">remove</a>
+              <a href="/design/changetheme/{{i.id}}/?theme={{i.theme|slice:'1:'}}" id="colorLink{{ i.id }}" class="btn btn-primary ml-3 mt-3 mb-5">change theme</a>
+            <label for="colorPicker{{ i.id }}" style="font-size: 1.2em; margin-bottom: 10px; display: block;">Choose a color:</label>
+            <input type="color" id="colorPicker{{ i.id }}" name="colorPicker" value="{{i.theme}}" onchange="updateColor({{ i.id }})" style="width: 50px; height: 30px; border: none; margin-bottom: 20px;">
+              {{i.html}}
             {% endfor %}
             {% endautoescape %}
           </div>
         </section>
+        <script>
+          function updateColor(counter) {
+              var colorPicker = document.getElementById("colorPicker" + counter);
+              var selectedColorLink = document.getElementById("colorLink" + counter);
+      
+              // Update the href attribute with the selected color value
+              selectedColorLink.href = "/design/changetheme/"+counter+"/?theme=" + colorPicker.value.slice(1);
+          }
+      </script>
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
