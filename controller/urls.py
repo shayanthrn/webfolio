@@ -28,5 +28,6 @@ urlpatterns = [
     path('design/changetheme/<str:id>/',changetheme.as_view()),
     path('website/<str:id>/',website.as_view()),
     path('export/',export.as_view()),
+    path('chatGPT/summary/',chatGPTsummary.as_view()),
     path('feedback/',feedback.as_view()), #not started yet
 ]

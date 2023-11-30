@@ -6,7 +6,13 @@ from django.apps import apps
 from .models import *
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import login, authenticate
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+from django.forms.models import model_to_dict
+import openai
+import json
+
+
+openai.api_key = "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"
 
 class landing(View):
     def get(self,request):
@@ -279,7 +285,33 @@ class information(View):
             return render(request, 'controller/confirm.html')
         else:
             return redirect("/login/")
-        
+
+class chatGPTsummary(View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            educations = list(Education.objects.filter(user=request.user).values())
+            works = list(Work.objects.filter(user=request.user).values())
+            portfolios = list(Portfolio.objects.filter(user=request.user).values())
+            user_info = model_to_dict(request.user, exclude=['password','is_staff','is_active','last_login','user_permissions','date_joined'])
+            data = {
+                'user_info': user_info,
+                'educations': educations,
+                'workExperiences': works,
+                'projects': portfolios,
+                'user_message': "give me a summary about me as my point of view",
+            }
+            data_str = json.dumps(data, cls=CustomJSONEncoder)
+            response = openai.Completion.create(
+                model="text-davinci-003",
+                prompt=data_str,
+                max_tokens=150
+            )
+            summary = response.choices[0].text.strip()
+            context = {"firstname":request.user.first_name,"lastname":request.user.last_name,"email":request.user.email,"linkedinurl":request.user.linkedin_url,"description":summary,"job_title":request.user.job_title}
+            return render(request, 'controller/information.html',context=context)
+        else:
+            return redirect("/login/")
+
 class changepassword(View):
     def post(self,request):
         if request.user.is_authenticated:
@@ -759,3 +791,11 @@ class feedback(View):
             return render(request, 'controller/confirm.html')  # Redirect to a success page
         else:
             return HttpResponse("Invalid rating. Please provide a rating between 1 and 10.")
+
+from datetime import date     
+class CustomJSONEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, date):
+            return obj.isoformat()
+        return super().default(obj)
+
