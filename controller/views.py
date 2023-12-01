@@ -12,7 +12,7 @@ import openai
 import json
 
 
-openai.api_key = "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"
+openai.api_key = "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"
 
 class landing(View):
     def get(self,request):
