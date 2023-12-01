@@ -1,0 +1,81 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Caches
+*.sqlite3
+*.db
+
+# Logs
+*.log
+
+# Temporary files
+*.bak
+*.swp
+*~
+
+# Environment variables
+.env
+
+# Static files
+/static/
+
+# Media files
+/media/
+
+# Virtual environment
+venv/
+venv2/
+env/
+env2/
+*.pyc
+*.pyo
+
+# Visual Studio Code settings
+.vscode/
+
+# Python-specific files
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Database
+db.sqlite3
+
+# Secret key
+*.secret
+
+# Ignore the migration directory
+**/migrations/
+
+# Ignore the local settings
+local_settings.py
+
+# Ignore coverage reports
+htmlcov/
+.coverage
+
+# Ignore generated HTML and XML
+*.html
+*.xml
+
+# Ignore dist and build directories
+/dist/
+/build/
+
+# Ignore egg-info
+*.egg-info/
+
+# Ignore pycache
+__pycache__/
+
+# Ignore pytest cache
+.cache/
+
+# Ignore .DS_Store (macOS)
+.DS_Store

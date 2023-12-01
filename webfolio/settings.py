@@ -16,6 +16,13 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+
+import os
+
+SECRET_KEY = os.environ.get('SECRET_KEY')
+DATABASE_URL = os.environ.get('DATABASE_URL')
+API_KEY = os.environ.get('API_KEY')
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -87,8 +94,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'webfolio',
         'USER': 'shayan',
-        'PASSWORD': 'shayan123',
-        'HOST': 'localhost',
+        'PASSWORD': SECRET_KEY,
+        'HOST': DATABASE_URL,
         'PORT': '5432',
     }
 }

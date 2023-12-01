@@ -10,9 +10,10 @@ from django.http import HttpResponse, JsonResponse
 from django.forms.models import model_to_dict
 import openai
 import json
+from django.conf import settings
 
 
-openai.api_key = "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"
+openai.api_key = settings.API_KEY
 
 class landing(View):
     def get(self,request):
