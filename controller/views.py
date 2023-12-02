@@ -49,7 +49,10 @@ class website(View):
                 html = html.replace("^^email^^", str(request.user.email))
                 html = html.replace("^^jobtitle^^", str(request.user.job_title))
                 html_content += html
-
+        for comp in web_components:
+            website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
+            content_type = website_component_order.content_type
+            theme = website_component_order.theme
             if content_type == "controller | education component":
                 educations = Education.objects.filter(user=request.user)
                 edu_comp = EducationComponent.objects.filter(id=website_component_order.component.id).first()
@@ -68,7 +71,10 @@ class website(View):
                     iterable += temp
                 html = html.replace("^^iterate^^", iterable)
                 html_content += html
-
+        for comp in web_components:
+            website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
+            content_type = website_component_order.content_type
+            theme = website_component_order.theme
             if content_type == "controller | work component":
                 works = Work.objects.filter(user=request.user)
                 work_comp = WorkComponent.objects.filter(id=website_component_order.component.id).first()
@@ -87,7 +93,10 @@ class website(View):
                     iterable += temp
                 html = html.replace("^^iterate^^", iterable)
                 html_content += html
-
+        for comp in web_components:
+            website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
+            content_type = website_component_order.content_type
+            theme = website_component_order.theme
             if content_type == "controller | portfolio component":
                 portfolios = Portfolio.objects.filter(user=request.user)
                 port_comp = PortfolioComponent.objects.filter(id=website_component_order.component.id).first()
@@ -105,7 +114,10 @@ class website(View):
                     iterable += temp
                 html = html.replace("^^iterate^^", iterable)
                 html_content += html
-
+        for comp in web_components:
+            website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
+            content_type = website_component_order.content_type
+            theme = website_component_order.theme    
             if content_type == "controller | skills component":
                 works = Work.objects.filter(user=request.user)
                 skills = []
@@ -147,7 +159,10 @@ class export(View):
                     html = html.replace("^^email^^", str(request.user.email))
                     html = html.replace("^^jobtitle^^", str(request.user.job_title))
                     html_content += html
-
+            for comp in web_components:
+                website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
+                content_type = website_component_order.content_type
+                theme = website_component_order.theme
                 if content_type == "controller | education component":
                     educations = Education.objects.filter(user=request.user)
                     edu_comp = EducationComponent.objects.filter(id=website_component_order.component.id).first()
@@ -166,7 +181,10 @@ class export(View):
                         iterable += temp
                     html = html.replace("^^iterate^^", iterable)
                     html_content += html
-
+            for comp in web_components:
+                website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
+                content_type = website_component_order.content_type
+                theme = website_component_order.theme
                 if content_type == "controller | work component":
                     works = Work.objects.filter(user=request.user)
                     work_comp = WorkComponent.objects.filter(id=website_component_order.component.id).first()
@@ -185,7 +203,10 @@ class export(View):
                         iterable += temp
                     html = html.replace("^^iterate^^", iterable)
                     html_content += html
-
+            for comp in web_components:
+                website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
+                content_type = website_component_order.content_type
+                theme = website_component_order.theme
                 if content_type == "controller | portfolio component":
                     portfolios = Portfolio.objects.filter(user=request.user)
                     port_comp = PortfolioComponent.objects.filter(id=website_component_order.component.id).first()
@@ -203,7 +224,10 @@ class export(View):
                         iterable += temp
                     html = html.replace("^^iterate^^", iterable)
                     html_content += html
-
+            for comp in web_components:
+                website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
+                content_type = website_component_order.content_type
+                theme = website_component_order.theme
                 if content_type == "controller | skills component":
                     works = Work.objects.filter(user=request.user)
                     skills = []
@@ -749,7 +773,7 @@ class design(View):
                         iterable += temp
                     html = html.replace("^^iterate^^", iterable)
                     components.append({"html": html, "id": comp.id, "theme": theme})
-                    
+
             for comp in web_components:
                 website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
                 content_type = website_component_order.content_type
