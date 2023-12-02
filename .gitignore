@@ -50,9 +50,6 @@ db.sqlite3
 # Secret key
 *.secret
 
-# Ignore the migration directory
-**/migrations/
-
 # Ignore the local settings
 local_settings.py
 
