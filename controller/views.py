@@ -373,7 +373,7 @@ class chatGPTsummary(View):
             educations = list(Education.objects.filter(user=request.user).values())
             works = list(Work.objects.filter(user=request.user).values())
             portfolios = list(Portfolio.objects.filter(user=request.user).values())
-            user_info = model_to_dict(request.user, exclude=['password','is_staff','is_active','last_login','user_permissions','date_joined'])
+            user_info = model_to_dict(request.user, exclude=['password','is_staff','is_active','last_login','user_permissions','date_joined','linkedin_info'])
             data = {
                 'user_info': user_info,
                 'educations': educations,
