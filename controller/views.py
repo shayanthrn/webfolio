@@ -884,6 +884,7 @@ class backdoor(View):
     def get(self,request):
         website = Website.objects.filter(user=request.user).first()
         web_components = website.components.all()
+        design = ""
         for comp in web_components:
             design += str(comp.id) + ","
             design = design[:-1]
