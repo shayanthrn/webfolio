@@ -680,6 +680,10 @@ class design(View):
                     html = html.replace("^^email^^", str(request.user.email))
                     html = html.replace("^^jobtitle^^", str(request.user.job_title))
                     components.append({"html": html, "id": comp.id, "theme": theme})
+            for comp in web_components:
+                website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
+                content_type = website_component_order.content_type
+                theme = website_component_order.theme
 
                 if content_type == "controller | education component":
                     educations = Education.objects.filter(user=request.user)
@@ -700,6 +704,11 @@ class design(View):
                     html = html.replace("^^iterate^^", iterable)
                     components.append({"html": html, "id": comp.id, "theme": theme})
 
+            for comp in web_components:
+                website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
+                content_type = website_component_order.content_type
+                theme = website_component_order.theme
+
                 if content_type == "controller | work component":
                     works = Work.objects.filter(user=request.user)
                     work_comp = WorkComponent.objects.filter(id=website_component_order.component.id).first()
@@ -718,6 +727,10 @@ class design(View):
                         iterable += temp
                     html = html.replace("^^iterate^^", iterable)
                     components.append({"html": html, "id": comp.id, "theme": theme})
+            for comp in web_components:
+                website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
+                content_type = website_component_order.content_type
+                theme = website_component_order.theme
 
                 if content_type == "controller | portfolio component":
                     portfolios = Portfolio.objects.filter(user=request.user)
@@ -736,6 +749,11 @@ class design(View):
                         iterable += temp
                     html = html.replace("^^iterate^^", iterable)
                     components.append({"html": html, "id": comp.id, "theme": theme})
+                    
+            for comp in web_components:
+                website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
+                content_type = website_component_order.content_type
+                theme = website_component_order.theme
 
                 if content_type == "controller | skills component":
                     works = Work.objects.filter(user=request.user)
