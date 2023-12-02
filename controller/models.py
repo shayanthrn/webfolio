@@ -21,7 +21,7 @@ class User(AbstractUser):
 class Feedback(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.IntegerField(null=True,blank=True)
-    design = models.CharField(max_length=15,null=True,blank=True)
+    design = models.CharField(max_length=45,null=True,blank=True)
 
     def __str__(self):
         return f"{self.user.username}'s rating - {self.rating}"
@@ -33,7 +33,7 @@ class Education(models.Model):
     field_of_study = models.CharField(max_length=255,null=True,blank=True)
     start_date = models.DateField(null=True,blank=True)
     end_date = models.DateField(null=True, blank=True)
-    grade = models.CharField(max_length=10,null=True,blank=True)
+    grade = models.CharField(max_length=40,null=True,blank=True)
     description = models.TextField(null=True,blank=True)
 
     def __str__(self):
@@ -123,7 +123,7 @@ class Website(models.Model):
 class WebsiteComponentOrder(models.Model):
     website = models.ForeignKey(Website, on_delete=models.CASCADE)
     component = models.ForeignKey(Component, on_delete=models.CASCADE)
-    content_type = models.CharField(max_length=20)
+    content_type = models.CharField(max_length=50)
     theme = models.CharField(max_length=255,default="#0d00fc")
 
     def __str__(self):
