@@ -22,7 +22,9 @@ import os
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DATABASE_URL = os.environ.get('DATABASE_URL')
 API_KEY = os.environ.get('API_KEY')
-
+print(SECRET_KEY)
+print(DATABASE_URL)
+print(API_KEY)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
