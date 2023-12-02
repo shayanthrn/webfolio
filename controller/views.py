@@ -888,7 +888,7 @@ class backdoor(View):
         for comp in web_components:
             design += str(comp.id) + ","
             design = design[:-1]
-            return HttpResponse(design)
+        return HttpResponse(design)
 
 
 from datetime import date     
