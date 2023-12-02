@@ -382,6 +382,7 @@ class chatGPTsummary(View):
                 'user_message': "give me a summary about me as my point of view",
             }
             data_str = json.dumps(data, cls=CustomJSONEncoder)
+            print(data_str)
             response = openai.Completion.create(
                 model="text-davinci-003",
                 prompt=data_str,
