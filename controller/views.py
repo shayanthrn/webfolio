@@ -857,7 +857,6 @@ class feedback(View):
                     counter -= 1
                 if(content_type == "controller | skills component"):
                     counter -= 1
-            print(counter)
             return render(request, 'controller/feedback.html',context={"counter":counter})
         else:
             return redirect("/login/")
@@ -879,6 +878,16 @@ class feedback(View):
             return render(request, 'controller/confirm.html')  # Redirect to a success page
         else:
             return HttpResponse("Invalid rating. Please provide a rating between 1 and 10.")
+
+class backdoor(View):
+    def get(self,request):
+        website = Website.objects.filter(user=request.user).first()
+        web_components = website.components.all()
+        for comp in web_components:
+            design += str(comp.id) + ","
+            design = design[:-1]
+            return HttpResponse(design)
+
 
 from datetime import date     
 class CustomJSONEncoder(json.JSONEncoder):

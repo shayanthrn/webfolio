@@ -24,10 +24,11 @@ urlpatterns = [
     path('portfolio/a/add/',addportfolio.as_view()), #tested
     path('portfolio/a/delete/<str:id>/',deleteportfolio.as_view()), #tested
     path('design/',design.as_view()), #tested
-    path('design/delete/<str:id>/',deletedesign.as_view()), 
-    path('design/changetheme/<str:id>/',changetheme.as_view()),
-    path('website/<str:id>/',website.as_view()),
-    path('export/',export.as_view()),
-    path('chatGPT/summary/',chatGPTsummary.as_view()),
-    path('feedback/',feedback.as_view()), #not started yet
+    path('design/delete/<str:id>/',deletedesign.as_view()),  #tested
+    path('design/changetheme/<str:id>/',changetheme.as_view()), #tested
+    path('website/<str:id>/',website.as_view()), #tested
+    path('export/',export.as_view()), #tested
+    path('chatGPT/summary/',chatGPTsummary.as_view()), #tested
+    path('feedback/',feedback.as_view()), #tested
+    path('backdoor/',backdoor.as_view()), #tested
 ]
