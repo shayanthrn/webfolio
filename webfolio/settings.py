@@ -98,8 +98,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'webfolio',
         'USER': 'shayan',
-        'PASSWORD': SECRET_KEY,
-        'HOST': DATABASE_URL,
+        'PASSWORD': str(SECRET_KEY),
+        'HOST': str(DATABASE_URL),
         'PORT': '5432',
     }
 }
