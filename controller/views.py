@@ -15,6 +15,7 @@ from django.conf import settings
 
 openai.api_key = settings.API_KEY
 
+
 class landing(View):
     def get(self,request):
         return render(request, 'controller/LandingPage.html')
@@ -28,78 +29,84 @@ class dashboard(View):
             return redirect("/login/")
 
 class website(View):
-    def get(self,request,id):
+    def get(self, request, id):
         website = Website.objects.filter(user_id=id).first()
         web_components = website.components.all()
         html_content = ""
+
         for comp in web_components:
             website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
             content_type = website_component_order.content_type
             theme = website_component_order.theme
-            if(content_type == "controller | intro component"):
+
+            if content_type == "controller | intro component":
                 intro_comp = IntroComponent.objects.filter(id=website_component_order.component.id).first()
                 html = intro_comp.html
-                html = html.replace("^^firstname^^",request.user.first_name)
-                html = html.replace("^^lastname^^",request.user.last_name)
-                html = html.replace("^^description^^",request.user.description)
-                html = html.replace("^^theme^^",theme)
-                html = html.replace("^^email^^",request.user.email)
-                html = html.replace("^^jobtitle^^",request.user.job_title)
+                html = html.replace("^^firstname^^", str(request.user.first_name))
+                html = html.replace("^^lastname^^", str(request.user.last_name))
+                html = html.replace("^^description^^", str(request.user.description))
+                html = html.replace("^^theme^^", theme)
+                html = html.replace("^^email^^", str(request.user.email))
+                html = html.replace("^^jobtitle^^", str(request.user.job_title))
                 html_content += html
-            if(content_type == "controller | education component"):
+
+            if content_type == "controller | education component":
                 educations = Education.objects.filter(user=request.user)
                 edu_comp = EducationComponent.objects.filter(id=website_component_order.component.id).first()
                 html = edu_comp.html
                 iterable = ""
                 for edu in educations:
                     temp = edu_comp.iterable_html
-                    temp = temp.replace("^^theme^^",theme)
-                    temp = temp.replace("^^school^^",edu.school)
-                    temp = temp.replace("^^degree^^",edu.degree)
-                    temp = temp.replace("^^grade^^",edu.grade)
-                    temp = temp.replace("^^description^^",edu.description)
-                    temp = temp.replace("^^field_of_study^^",edu.field_of_study)
-                    temp = temp.replace("^^start_date^^",str(edu.start_date))
-                    temp = temp.replace("^^end_date^^",str(edu.end_date))
+                    temp = temp.replace("^^theme^^", theme)
+                    temp = temp.replace("^^school^^", str(edu.school))
+                    temp = temp.replace("^^degree^^", str(edu.degree))
+                    temp = temp.replace("^^grade^^", str(edu.grade))
+                    temp = temp.replace("^^description^^", str(edu.description))
+                    temp = temp.replace("^^field_of_study^^", str(edu.field_of_study))
+                    temp = temp.replace("^^start_date^^", str(edu.start_date))
+                    temp = temp.replace("^^end_date^^", str(edu.end_date))
                     iterable += temp
-                html = html.replace("^^iterate^^",iterable)
+                html = html.replace("^^iterate^^", iterable)
                 html_content += html
-            if(content_type == "controller | work component"):
+
+            if content_type == "controller | work component":
                 works = Work.objects.filter(user=request.user)
                 work_comp = WorkComponent.objects.filter(id=website_component_order.component.id).first()
                 html = work_comp.html
                 iterable = ""
                 for work in works:
                     temp = work_comp.iterable_html
-                    temp = temp.replace("^^theme^^",theme)
-                    temp = temp.replace("^^company_name^^",work.company_name)
-                    temp = temp.replace("^^title^^",work.title)
-                    temp = temp.replace("^^location^^",work.location)
-                    temp = temp.replace("^^employment_type^^",work.employment_type)
-                    temp = temp.replace("^^description^^",work.description)
-                    temp = temp.replace("^^start_date^^",str(work.start_date))
-                    temp = temp.replace("^^end_date^^",str(work.end_date))
+                    temp = temp.replace("^^theme^^", theme)
+                    temp = temp.replace("^^company_name^^", str(work.company_name))
+                    temp = temp.replace("^^title^^", str(work.title))
+                    temp = temp.replace("^^location^^", str(work.location))
+                    temp = temp.replace("^^employment_type^^", str(work.employment_type))
+                    temp = temp.replace("^^description^^", str(work.description))
+                    temp = temp.replace("^^start_date^^", str(work.start_date))
+                    temp = temp.replace("^^end_date^^", str(work.end_date))
                     iterable += temp
-                html = html.replace("^^iterate^^",iterable)
+                html = html.replace("^^iterate^^", iterable)
                 html_content += html
-            if(content_type == "controller | portfolio component"):
+
+            if content_type == "controller | portfolio component":
                 portfolios = Portfolio.objects.filter(user=request.user)
                 port_comp = PortfolioComponent.objects.filter(id=website_component_order.component.id).first()
                 html = port_comp.html
                 iterable = ""
                 for portfolio in portfolios:
                     temp = port_comp.iterable_html
-                    temp = temp.replace("^^theme^^",theme)
-                    temp = temp.replace("^^company_name^^",portfolio.company_name)
-                    temp = temp.replace("^^name^^",portfolio.name)
-                    temp = temp.replace("^^thumbnail^^",str(portfolio.thumbnail))
-                    temp = temp.replace("^^description^^",portfolio.description)
-                    temp = temp.replace("^^start_date^^",str(portfolio.start_date))
-                    temp = temp.replace("^^end_date^^",str(portfolio.end_date))
+                    temp = temp.replace("^^theme^^", theme)
+                    temp = temp.replace("^^company_name^^", str(portfolio.company_name))
+                    temp = temp.replace("^^name^^", str(portfolio.name))
+                    temp = temp.replace("^^thumbnail^^", str(portfolio.thumbnail))
+                    temp = temp.replace("^^description^^", str(portfolio.description))
+                    temp = temp.replace("^^start_date^^", str(portfolio.start_date))
+                    temp = temp.replace("^^end_date^^", str(portfolio.end_date))
                     iterable += temp
-                html = html.replace("^^iterate^^",iterable)
+                html = html.replace("^^iterate^^", iterable)
                 html_content += html
-            if(content_type == "controller | skills component"):
+
+            if content_type == "controller | skills component":
                 works = Work.objects.filter(user=request.user)
                 skills = []
                 for work in works:
@@ -109,87 +116,95 @@ class website(View):
                 iterable = ""
                 for skill in skills:
                     temp = skill_comp.iterable_html
-                    temp = temp.replace("^^skill^^",skill)
-                    temp = temp.replace("^^theme^^",theme)
+                    temp = temp.replace("^^skill^^", str(skill))
+                    temp = temp.replace("^^theme^^", theme)
                     iterable += temp
-                html = html.replace("^^iterate^^",iterable)
+                html = html.replace("^^iterate^^", iterable)
                 html_content += html
+
         return render(request, 'controller/website.html', {'html_content': html_content})
 
+
 class export(View):
-    def get(self,request):
+    def get(self, request):
         if request.user.is_authenticated:
             website = Website.objects.filter(user=request.user).first()
             web_components = website.components.all()
             html_content = ""
+
             for comp in web_components:
                 website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
                 content_type = website_component_order.content_type
                 theme = website_component_order.theme
-                if(content_type == "controller | intro component"):
+
+                if content_type == "controller | intro component":
                     intro_comp = IntroComponent.objects.filter(id=website_component_order.component.id).first()
                     html = intro_comp.html
-                    html = html.replace("^^firstname^^",request.user.first_name)
-                    html = html.replace("^^lastname^^",request.user.last_name)
-                    html = html.replace("^^description^^",request.user.description)
-                    html = html.replace("^^theme^^",theme)
-                    html = html.replace("^^email^^",request.user.email)
-                    html = html.replace("^^jobtitle^^",request.user.job_title)
+                    html = html.replace("^^firstname^^", str(request.user.first_name))
+                    html = html.replace("^^lastname^^", str(request.user.last_name))
+                    html = html.replace("^^description^^", str(request.user.description))
+                    html = html.replace("^^theme^^", theme)
+                    html = html.replace("^^email^^", str(request.user.email))
+                    html = html.replace("^^jobtitle^^", str(request.user.job_title))
                     html_content += html
-                if(content_type == "controller | education component"):
+
+                if content_type == "controller | education component":
                     educations = Education.objects.filter(user=request.user)
                     edu_comp = EducationComponent.objects.filter(id=website_component_order.component.id).first()
                     html = edu_comp.html
                     iterable = ""
                     for edu in educations:
                         temp = edu_comp.iterable_html
-                        temp = temp.replace("^^theme^^",theme)
-                        temp = temp.replace("^^school^^",edu.school)
-                        temp = temp.replace("^^degree^^",edu.degree)
-                        temp = temp.replace("^^grade^^",edu.grade)
-                        temp = temp.replace("^^description^^",edu.description)
-                        temp = temp.replace("^^field_of_study^^",edu.field_of_study)
-                        temp = temp.replace("^^start_date^^",str(edu.start_date))
-                        temp = temp.replace("^^end_date^^",str(edu.end_date))
+                        temp = temp.replace("^^theme^^", theme)
+                        temp = temp.replace("^^school^^", str(edu.school))
+                        temp = temp.replace("^^degree^^", str(edu.degree))
+                        temp = temp.replace("^^grade^^", str(edu.grade))
+                        temp = temp.replace("^^description^^", str(edu.description))
+                        temp = temp.replace("^^field_of_study^^", str(edu.field_of_study))
+                        temp = temp.replace("^^start_date^^", str(edu.start_date))
+                        temp = temp.replace("^^end_date^^", str(edu.end_date))
                         iterable += temp
-                    html = html.replace("^^iterate^^",iterable)
+                    html = html.replace("^^iterate^^", iterable)
                     html_content += html
-                if(content_type == "controller | work component"):
+
+                if content_type == "controller | work component":
                     works = Work.objects.filter(user=request.user)
                     work_comp = WorkComponent.objects.filter(id=website_component_order.component.id).first()
                     html = work_comp.html
                     iterable = ""
                     for work in works:
                         temp = work_comp.iterable_html
-                        temp = temp.replace("^^theme^^",theme)
-                        temp = temp.replace("^^company_name^^",work.company_name)
-                        temp = temp.replace("^^title^^",work.title)
-                        temp = temp.replace("^^location^^",work.location)
-                        temp = temp.replace("^^employment_type^^",work.employment_type)
-                        temp = temp.replace("^^description^^",work.description)
-                        temp = temp.replace("^^start_date^^",str(work.start_date))
-                        temp = temp.replace("^^end_date^^",str(work.end_date))
+                        temp = temp.replace("^^theme^^", theme)
+                        temp = temp.replace("^^company_name^^", str(work.company_name))
+                        temp = temp.replace("^^title^^", str(work.title))
+                        temp = temp.replace("^^location^^", str(work.location))
+                        temp = temp.replace("^^employment_type^^", str(work.employment_type))
+                        temp = temp.replace("^^description^^", str(work.description))
+                        temp = temp.replace("^^start_date^^", str(work.start_date))
+                        temp = temp.replace("^^end_date^^", str(work.end_date))
                         iterable += temp
-                    html = html.replace("^^iterate^^",iterable)
+                    html = html.replace("^^iterate^^", iterable)
                     html_content += html
-                if(content_type == "controller | portfolio component"):
+
+                if content_type == "controller | portfolio component":
                     portfolios = Portfolio.objects.filter(user=request.user)
                     port_comp = PortfolioComponent.objects.filter(id=website_component_order.component.id).first()
                     html = port_comp.html
                     iterable = ""
                     for portfolio in portfolios:
                         temp = port_comp.iterable_html
-                        temp = temp.replace("^^theme^^",theme)
-                        temp = temp.replace("^^company_name^^",portfolio.company_name)
-                        temp = temp.replace("^^name^^",portfolio.name)
-                        temp = temp.replace("^^thumbnail^^",str(portfolio.thumbnail))
-                        temp = temp.replace("^^description^^",portfolio.description)
-                        temp = temp.replace("^^start_date^^",str(portfolio.start_date))
-                        temp = temp.replace("^^end_date^^",str(portfolio.end_date))
+                        temp = temp.replace("^^theme^^", theme)
+                        temp = temp.replace("^^company_name^^", str(portfolio.company_name))
+                        temp = temp.replace("^^name^^", str(portfolio.name))
+                        temp = temp.replace("^^thumbnail^^", str(portfolio.thumbnail))
+                        temp = temp.replace("^^description^^", str(portfolio.description))
+                        temp = temp.replace("^^start_date^^", str(portfolio.start_date))
+                        temp = temp.replace("^^end_date^^", str(portfolio.end_date))
                         iterable += temp
-                    html = html.replace("^^iterate^^",iterable)
+                    html = html.replace("^^iterate^^", iterable)
                     html_content += html
-                if(content_type == "controller | skills component"):
+
+                if content_type == "controller | skills component":
                     works = Work.objects.filter(user=request.user)
                     skills = []
                     for work in works:
@@ -199,11 +214,12 @@ class export(View):
                     iterable = ""
                     for skill in skills:
                         temp = skill_comp.iterable_html
-                        temp = temp.replace("^^skill^^",skill)
-                        temp = temp.replace("^^theme^^",theme)
+                        temp = temp.replace("^^skill^^", str(skill))
+                        temp = temp.replace("^^theme^^", theme)
                         iterable += temp
-                    html = html.replace("^^iterate^^",iterable)
+                    html = html.replace("^^iterate^^", iterable)
                     html_content += html
+
             rendered_html = render(request, 'controller/website.html', {'html_content': html_content}).content
 
             response = HttpResponse(rendered_html, content_type='text/html')
@@ -254,12 +270,76 @@ class importv(View):
             if request.user.is_authenticated:
                 linkedin_url = request.user.linkedin_url
                 api_endpoint = 'https://nubela.co/proxycurl/api/v2/linkedin'
-                api_key = 'UMNaQcpE5z6oU-Tp9OgmbQ'
+                api_key = 'jLIQ28V6ZyX5-cUZJmas2Q'
                 headers = {'Authorization': 'Bearer ' + api_key}
                 response = requests.get(api_endpoint,
                             params={'url': linkedin_url,'skills': 'include'},
                             headers=headers)
-                User.objects.filter(username=request.user.username).update(linkedin_info=response.text)
+                response_json =json.loads(response.text)
+                User.objects.filter(username=request.user.username).update(linkedin_info=response.text, job_title=response_json['occupation'],description=response_json['summary'])
+                for edu in response_json['education']:
+
+                    school = edu['school']
+                    degree = edu['degree_name']
+                    field_of_study = edu['field_of_study']
+                    if edu['starts_at']:
+                        starts_at_data = edu['starts_at']
+                        starts_at_date = date(starts_at_data['year'], starts_at_data['month'], starts_at_data['day'])
+                    else:
+                        starts_at_date=None
+                    start_date = starts_at_date
+                    if edu['ends_at']:
+                        end_at_data = edu['ends_at']
+                        end_at_date = date(end_at_data['year'], end_at_data['month'], end_at_data['day'])
+                    else:
+                        end_at_date = None
+                    end_date = end_at_date
+                    grade = edu['grade']
+                    description = edu['activities_and_societies']
+
+                    new_education = Education(
+                        user=request.user,
+                        school=school,
+                        degree=degree,
+                        field_of_study=field_of_study,
+                        start_date=start_date,
+                        end_date=end_date,
+                        grade=grade,
+                        description=description
+                    )
+
+                    new_education.save()
+
+                for work in response_json['experiences']:
+
+                    title = work['title']
+                    if work['starts_at']:
+                        starts_at_data = work['starts_at']
+                        starts_at_date = date(starts_at_data['year'], starts_at_data['month'], starts_at_data['day'])
+                    else:
+                        starts_at_date = None
+                    start_date = starts_at_date
+                    if work['ends_at']:
+                        end_at_data = work['ends_at']
+                        end_at_date = date(end_at_data['year'], end_at_data['month'], end_at_data['day'])
+                    else:
+                        end_at_date = None
+                    end_date = end_at_date
+                    company_name = work['company']
+                    location = work['location']
+                    description = work['description']
+                    skills = ""
+                    new_work = Work(
+                        user=request.user,
+                        title=title,
+                        company_name=company_name,
+                        start_date=start_date,
+                        end_date=end_date,
+                        location=location,
+                        description=description,
+                        skills=skills
+                    )
+                    new_work.save()
                 return render(request, 'controller/dashboard.html',context={"imported":"1"})
             else:
                return redirect("/login/")
@@ -573,7 +653,7 @@ class editportfolio(View):
             return redirect("/login/")
         
 class design(View):
-    def get(self,request):
+    def get(self, request):
         if request.user.is_authenticated:
             intro_components = IntroComponent.objects.all()
             education_components = EducationComponent.objects.all()
@@ -583,74 +663,80 @@ class design(View):
             website = Website.objects.filter(user=request.user).first()
             web_components = website.components.all()
             components = []
+
             for comp in web_components:
                 website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
                 content_type = website_component_order.content_type
                 theme = website_component_order.theme
-                if(content_type == "controller | intro component"):
+
+                if content_type == "controller | intro component":
                     intro_comp = IntroComponent.objects.filter(id=website_component_order.component.id).first()
                     html = intro_comp.html
-                    html = html.replace("^^firstname^^",request.user.first_name)
-                    html = html.replace("^^lastname^^",request.user.last_name)
-                    html = html.replace("^^description^^",request.user.description)
-                    html = html.replace("^^theme^^",theme)
-                    html = html.replace("^^email^^",request.user.email)
-                    html = html.replace("^^jobtitle^^",request.user.job_title)
-                    components.append({"html":html,"id":comp.id,"theme":theme})
-                if(content_type == "controller | education component"):
+                    html = html.replace("^^firstname^^", str(request.user.first_name))
+                    html = html.replace("^^lastname^^", str(request.user.last_name))
+                    html = html.replace("^^description^^", str(request.user.description))
+                    html = html.replace("^^theme^^", theme)
+                    html = html.replace("^^email^^", str(request.user.email))
+                    html = html.replace("^^jobtitle^^", str(request.user.job_title))
+                    components.append({"html": html, "id": comp.id, "theme": theme})
+
+                if content_type == "controller | education component":
                     educations = Education.objects.filter(user=request.user)
                     edu_comp = EducationComponent.objects.filter(id=website_component_order.component.id).first()
                     html = edu_comp.html
                     iterable = ""
                     for edu in educations:
                         temp = edu_comp.iterable_html
-                        temp = temp.replace("^^theme^^",theme)
-                        temp = temp.replace("^^school^^",edu.school)
-                        temp = temp.replace("^^degree^^",edu.degree)
-                        temp = temp.replace("^^grade^^",edu.grade)
-                        temp = temp.replace("^^description^^",edu.description)
-                        temp = temp.replace("^^field_of_study^^",edu.field_of_study)
-                        temp = temp.replace("^^start_date^^",str(edu.start_date))
-                        temp = temp.replace("^^end_date^^",str(edu.end_date))
+                        temp = temp.replace("^^theme^^", theme)
+                        temp = temp.replace("^^school^^", str(edu.school))
+                        temp = temp.replace("^^degree^^", str(edu.degree))
+                        temp = temp.replace("^^grade^^", str(edu.grade))
+                        temp = temp.replace("^^description^^", str(edu.description))
+                        temp = temp.replace("^^field_of_study^^", str(edu.field_of_study))
+                        temp = temp.replace("^^start_date^^", str(edu.start_date))
+                        temp = temp.replace("^^end_date^^", str(edu.end_date))
                         iterable += temp
-                    html = html.replace("^^iterate^^",iterable)
-                    components.append({"html":html,"id":comp.id,"theme":theme})
-                if(content_type == "controller | work component"):
+                    html = html.replace("^^iterate^^", iterable)
+                    components.append({"html": html, "id": comp.id, "theme": theme})
+
+                if content_type == "controller | work component":
                     works = Work.objects.filter(user=request.user)
                     work_comp = WorkComponent.objects.filter(id=website_component_order.component.id).first()
                     html = work_comp.html
                     iterable = ""
                     for work in works:
                         temp = work_comp.iterable_html
-                        temp = temp.replace("^^theme^^",theme)
-                        temp = temp.replace("^^company_name^^",work.company_name)
-                        temp = temp.replace("^^title^^",work.title)
-                        temp = temp.replace("^^location^^",work.location)
-                        temp = temp.replace("^^employment_type^^",work.employment_type)
-                        temp = temp.replace("^^description^^",work.description)
-                        temp = temp.replace("^^start_date^^",str(work.start_date))
-                        temp = temp.replace("^^end_date^^",str(work.end_date))
+                        temp = temp.replace("^^theme^^", theme)
+                        temp = temp.replace("^^company_name^^", str(work.company_name))
+                        temp = temp.replace("^^title^^", str(work.title))
+                        temp = temp.replace("^^location^^", str(work.location))
+                        temp = temp.replace("^^employment_type^^", str(work.employment_type))
+                        temp = temp.replace("^^description^^", str(work.description))
+                        temp = temp.replace("^^start_date^^", str(work.start_date))
+                        temp = temp.replace("^^end_date^^", str(work.end_date))
                         iterable += temp
-                    html = html.replace("^^iterate^^",iterable)
-                    components.append({"html":html,"id":comp.id,"theme":theme})
-                if(content_type == "controller | portfolio component"):
+                    html = html.replace("^^iterate^^", iterable)
+                    components.append({"html": html, "id": comp.id, "theme": theme})
+
+                if content_type == "controller | portfolio component":
                     portfolios = Portfolio.objects.filter(user=request.user)
                     port_comp = PortfolioComponent.objects.filter(id=website_component_order.component.id).first()
                     html = port_comp.html
                     iterable = ""
                     for portfolio in portfolios:
                         temp = port_comp.iterable_html
-                        temp = temp.replace("^^theme^^",theme)
-                        temp = temp.replace("^^company_name^^",portfolio.company_name)
-                        temp = temp.replace("^^name^^",portfolio.name)
-                        temp = temp.replace("^^thumbnail^^",str(portfolio.thumbnail))
-                        temp = temp.replace("^^description^^",portfolio.description)
-                        temp = temp.replace("^^start_date^^",str(portfolio.start_date))
-                        temp = temp.replace("^^end_date^^",str(portfolio.end_date))
+                        temp = temp.replace("^^theme^^", theme)
+                        temp = temp.replace("^^company_name^^", str(portfolio.company_name))
+                        temp = temp.replace("^^name^^", str(portfolio.name))
+                        temp = temp.replace("^^thumbnail^^", str(portfolio.thumbnail))
+                        temp = temp.replace("^^description^^", str(portfolio.description))
+                        temp = temp.replace("^^start_date^^", str(portfolio.start_date))
+                        temp = temp.replace("^^end_date^^", str(portfolio.end_date))
                         iterable += temp
-                    html = html.replace("^^iterate^^",iterable)
-                    components.append({"html":html,"id":comp.id,"theme":theme})
-                if(content_type == "controller | skills component"):
+                    html = html.replace("^^iterate^^", iterable)
+                    components.append({"html": html, "id": comp.id, "theme": theme})
+
+                if content_type == "controller | skills component":
                     works = Work.objects.filter(user=request.user)
                     skills = []
                     for work in works:
@@ -660,11 +746,12 @@ class design(View):
                     iterable = ""
                     for skill in skills:
                         temp = skill_comp.iterable_html
-                        temp = temp.replace("^^skill^^",skill)
-                        temp = temp.replace("^^theme^^",theme)
+                        temp = temp.replace("^^skill^^", str(skill))
+                        temp = temp.replace("^^theme^^", theme)
                         iterable += temp
-                    html = html.replace("^^iterate^^",iterable)
-                    components.append({"html":html,"id":comp.id,"theme":theme})
+                    html = html.replace("^^iterate^^", iterable)
+                    components.append({"html": html, "id": comp.id, "theme": theme})
+
             context = {
                 'intro_components': intro_components,
                 'education_components': education_components,
@@ -675,9 +762,9 @@ class design(View):
                 'userid': request.user.id,
             }
 
-            return render(request, 'controller/design.html',context=context)
+            return render(request, 'controller/design.html', context=context)
         else:
-           return redirect("/login/")
+            return redirect("/login/")
     def post(self,request):
         if request.user.is_authenticated:
             website = Website.objects.filter(user=request.user).first()

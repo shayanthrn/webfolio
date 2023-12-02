@@ -4,11 +4,11 @@ from django.utils import timezone
 
 class User(AbstractUser):
     username = models.EmailField(unique=True, null=True)
-    linkedin_info = models.TextField()
-    linkedin_url = models.URLField()
-    job_title = models.CharField(max_length=255)
-    email = models.EmailField(unique=True, null=True)
-    description = models.TextField()
+    linkedin_info = models.TextField(null=True,blank=True)
+    linkedin_url = models.URLField(null=True,blank=True)
+    job_title = models.CharField(max_length=255,null=True,blank=True)
+    email = models.EmailField(unique=True, null=True,blank=True)
+    description = models.TextField(null=True,blank=True)
     is_staff = models.BooleanField(default=False,null=True)
     is_active = models.BooleanField(default=True, null=True)
     date_joined = models.DateTimeField(default=timezone.now, null=True)
@@ -20,33 +20,33 @@ class User(AbstractUser):
     
 class Feedback(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    rating = models.IntegerField(null=True)
-    design = models.CharField(max_length=15,null=True)
+    rating = models.IntegerField(null=True,blank=True)
+    design = models.CharField(max_length=15,null=True,blank=True)
 
     def __str__(self):
         return f"{self.user.username}'s rating - {self.rating}"
     
 class Education(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    school = models.CharField(max_length=255)
-    degree = models.CharField(max_length=255)
-    field_of_study = models.CharField(max_length=255)
-    start_date = models.DateField()
+    school = models.CharField(max_length=255,null=True,blank=True)
+    degree = models.CharField(max_length=255,null=True,blank=True)
+    field_of_study = models.CharField(max_length=255,null=True,blank=True)
+    start_date = models.DateField(null=True,blank=True)
     end_date = models.DateField(null=True, blank=True)
-    grade = models.CharField(max_length=10)
-    description = models.TextField()
+    grade = models.CharField(max_length=10,null=True,blank=True)
+    description = models.TextField(null=True,blank=True)
 
     def __str__(self):
         return f"{self.user.username}'s Education - {self.school}"
     
 class Portfolio(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255,null=True,blank=True)
     thumbnail = models.ImageField(upload_to='static/portfolio_thumbnails/', null=True, blank=True)
-    start_date = models.DateField()
+    start_date = models.DateField(null=True,blank=True)
     end_date = models.DateField(null=True, blank=True)
-    company_name = models.CharField(max_length=255)
-    description = models.TextField()
+    company_name = models.CharField(max_length=255,null=True,blank=True)
+    description = models.TextField(null=True,blank=True)
 
     def __str__(self):
         return f"{self.user.username}'s Portfolio - {self.name}"
@@ -63,19 +63,20 @@ class Work(models.Model):
         SEASONAL = 'Seasonal', 'Seasonal'
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255,null=True,blank=True)
     employment_type = models.CharField(
         max_length=20,
         choices=EmploymentType.choices,
         default=EmploymentType.FULL_TIME,
+        null=True
     )
-    company_name = models.CharField(max_length=255)
-    start_date = models.DateField()
+    company_name = models.CharField(max_length=255,null=True,blank=True)
+    start_date = models.DateField(null=True,blank=True)
     end_date = models.DateField(null=True, blank=True)
-    location = models.CharField(max_length=255)
-    industry = models.CharField(max_length=255)
-    description = models.TextField()
-    skills = models.TextField()  # Assuming a comma-separated list of skills
+    location = models.CharField(max_length=255,null=True,blank=True)
+    industry = models.CharField(max_length=255,null=True,blank=True)
+    description = models.TextField(null=True,blank=True)
+    skills = models.TextField(null=True,blank=True)  # Assuming a comma-separated list of skills
 
     def __str__(self):
         return f"{self.user.username}'s Work - {self.title}"
