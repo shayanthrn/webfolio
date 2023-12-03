@@ -18,7 +18,7 @@ def find_optimal_combination(partial_input):
     float: The maximum predicted score.
     """
     # Load the dataset
-    file_path = 'RandomForest\\recommendation_system_dataset.csv'
+    file_path = 'RandomForest/recommendation_system_dataset.csv'
     df = load_dataset(file_path)
     # Splitting the data into train and test sets
     X = df.drop('score', axis=1)
