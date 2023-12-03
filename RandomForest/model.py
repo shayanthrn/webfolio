@@ -7,6 +7,7 @@ import itertools
 
 def find_optimal_combination(partial_input):
     print(partial_input)
+    partial_input = {'intro_component': 4, 'education_component': 2}
     """
     Find the combination of missing inputs that maximizes the predicted score.
 
