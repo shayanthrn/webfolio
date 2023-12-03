@@ -6,6 +6,7 @@ from sklearn.metrics import mean_squared_error
 import itertools
 
 def find_optimal_combination(partial_input):
+    print(partial_input)
     """
     Find the combination of missing inputs that maximizes the predicted score.
 
