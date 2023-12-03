@@ -940,3 +940,6 @@ class CustomJSONEncoder(json.JSONEncoder):
             return obj.isoformat()
         return super().default(obj)
 
+class AIdesign(View):
+    def get(self,request):
+        pass
