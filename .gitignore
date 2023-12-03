@@ -57,9 +57,6 @@ local_settings.py
 htmlcov/
 .coverage
 
-# Ignore generated HTML and XML
-*.html
-*.xml
 
 # Ignore dist and build directories
 /dist/

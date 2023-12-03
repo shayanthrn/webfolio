@@ -947,23 +947,35 @@ class AIdesign(View):
             website = Website.objects.filter(user=request.user).first()
             web_components = website.components.all()
             input_comp = {}
+            introhas = 0
+            eduhas = 0
+            workhas = 0
+            porthas = 0
+            skillhas = 0
             for comp in web_components:
                 website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
                 content_type = website_component_order.content_type
                 if(content_type == "controller | intro component"):
+                    introhas = 1
                     input_comp['intro_component'] = comp.id
                 if(content_type == "controller | education component"):
+                    eduhas = 1
                     input_comp['education_component'] = comp.id
                 if(content_type == "controller | work component"):
+                    workhas = 1
                     input_comp['work_component'] = comp.id
                 if(content_type == "controller | portfolio component"):
+                    porthas = 1
                     input_comp['portfolio_component'] = comp.id
                 if(content_type == "controller | skills component"):
+                    skillhas = 1
                     input_comp['skills_component'] = comp.id
-
-            best_combination, max_score = model.find_optimal_combination(input_comp)
-            print("Best Combination:", best_combination)
-            print("Maximum Predicted Score:", max_score)
-            return HttpResponse(best_combination)
+            if(introhas + eduhas + workhas + porthas + skillhas <5):
+                best_combination, max_score = model.find_optimal_combination(input_comp)
+                print("Best Combination:", best_combination)
+                print("Maximum Predicted Score:", max_score)
+                return render(request, 'controller/designai.html',context={'success':1})
+            else:
+                return render(request, 'controller/designai.html',context={'success':0})
         else:
             return redirect("/login/")
