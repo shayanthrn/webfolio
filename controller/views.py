@@ -983,7 +983,38 @@ class AIdesign(View):
                     skillhas = 1
                     input_comp['skills_component'] = comp.id
             if(introhas + eduhas + workhas + porthas + skillhas <5):
+                WebsiteComponentOrder.objects.filter(website=website).delete()
                 best_combination, max_score = model.find_optimal_combination(input_comp)
+                component = get_object_or_404(IntroComponent, pk=best_combination['intro_component'])
+                website_component_order, created = WebsiteComponentOrder.objects.get_or_create(
+                    website=website,
+                    component=component,
+                    content_type=ContentType.objects.get_for_model(component)
+                )
+                component = get_object_or_404(EducationComponent, pk=best_combination['education_component'])
+                website_component_order, created = WebsiteComponentOrder.objects.get_or_create(
+                    website=website,
+                    component=component,
+                    content_type=ContentType.objects.get_for_model(component)
+                )
+                component = get_object_or_404(WorkComponent, pk=best_combination['work_component'])
+                website_component_order, created = WebsiteComponentOrder.objects.get_or_create(
+                    website=website,
+                    component=component,
+                    content_type=ContentType.objects.get_for_model(component)
+                )
+                component = get_object_or_404(PortfolioComponent, pk=best_combination['portfolio_component'])
+                website_component_order, created = WebsiteComponentOrder.objects.get_or_create(
+                    website=website,
+                    component=component,
+                    content_type=ContentType.objects.get_for_model(component)
+                )
+                component = get_object_or_404(SkillsComponent, pk=best_combination['skills_component'])
+                website_component_order, created = WebsiteComponentOrder.objects.get_or_create(
+                    website=website,
+                    component=component,
+                    content_type=ContentType.objects.get_for_model(component)
+                )
                 print("Best Combination:", best_combination)
                 print("Maximum Predicted Score:", max_score)
                 return render(request, 'controller/designai.html',context={'success':1})
