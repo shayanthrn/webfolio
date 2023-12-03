@@ -11,6 +11,7 @@ from django.forms.models import model_to_dict
 import openai
 import json
 from django.conf import settings
+from RandomForest import model
 
 
 openai.api_key = settings.API_KEY
@@ -942,4 +943,27 @@ class CustomJSONEncoder(json.JSONEncoder):
 
 class AIdesign(View):
     def get(self,request):
-        pass
+        if request.user.is_authenticated:
+            website = Website.objects.filter(user=request.user).first()
+            web_components = website.components.all()
+            input_comp = {}
+            for comp in web_components:
+                website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
+                content_type = website_component_order.content_type
+                if(content_type == "controller | intro component"):
+                    input_comp['intro_component'] = comp.id
+                if(content_type == "controller | education component"):
+                    input_comp['education_component'] = comp.id
+                if(content_type == "controller | work component"):
+                    input_comp['work_component'] = comp.id
+                if(content_type == "controller | portfolio component"):
+                    input_comp['portfolio_component'] = comp.id
+                if(content_type == "controller | skills component"):
+                    input_comp['skills_component'] = comp.id
+
+            best_combination, max_score = model.find_optimal_combination(input_comp)
+            print("Best Combination:", best_combination)
+            print("Maximum Predicted Score:", max_score)
+            return HttpResponse(best_combination)
+        else:
+            return redirect("/login/")
