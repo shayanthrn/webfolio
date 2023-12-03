@@ -24,7 +24,7 @@ urlpatterns = [
     path('portfolio/a/add/',addportfolio.as_view()), #tested
     path('portfolio/a/delete/<str:id>/',deleteportfolio.as_view()), #tested
     path('design/',design.as_view()), #tested
-    path('design/',AIdesign.as_view()), #tested
+    path('design/ai/',AIdesign.as_view()), #tested
     path('design/delete/<str:id>/',deletedesign.as_view()),  #tested
     path('design/changetheme/<str:id>/',changetheme.as_view()), #tested
     path('website/<str:id>/',website.as_view()), #tested
