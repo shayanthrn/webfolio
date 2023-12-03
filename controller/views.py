@@ -1017,7 +1017,7 @@ class AIdesign(View):
                 )
                 print("Best Combination:", best_combination)
                 print("Maximum Predicted Score:", max_score)
-                return render(request, 'controller/designai.html',context={'success':1})
+                return render(request, 'controller/designai.html',context={'success':1,'score':max_score})
             else:
                 return render(request, 'controller/designai.html',context={'success':0})
         else:
