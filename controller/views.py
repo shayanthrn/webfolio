@@ -958,15 +958,27 @@ class AIdesign(View):
                 if(content_type == "controller | intro component"):
                     introhas = 1
                     input_comp['intro_component'] = comp.id
+            for comp in web_components:
+                website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
+                content_type = website_component_order.content_type
                 if(content_type == "controller | education component"):
                     eduhas = 1
                     input_comp['education_component'] = comp.id
+            for comp in web_components:
+                website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
+                content_type = website_component_order.content_type
                 if(content_type == "controller | work component"):
                     workhas = 1
                     input_comp['work_component'] = comp.id
+            for comp in web_components:
+                website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
+                content_type = website_component_order.content_type
                 if(content_type == "controller | portfolio component"):
                     porthas = 1
                     input_comp['portfolio_component'] = comp.id
+            for comp in web_components:
+                website_component_order = WebsiteComponentOrder.objects.get(website=website, component=comp)
+                content_type = website_component_order.content_type
                 if(content_type == "controller | skills component"):
                     skillhas = 1
                     input_comp['skills_component'] = comp.id
