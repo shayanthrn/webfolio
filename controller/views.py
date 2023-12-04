@@ -295,7 +295,7 @@ class importv(View):
             if request.user.is_authenticated:
                 linkedin_url = request.user.linkedin_url
                 api_endpoint = 'https://nubela.co/proxycurl/api/v2/linkedin'
-                api_key = 'jLIQ28V6ZyX5-cUZJmas2Q'
+                api_key = '5AQS1_2gF5q2bB6pvfaXDA'
                 headers = {'Authorization': 'Bearer ' + api_key}
                 response = requests.get(api_endpoint,
                             params={'url': linkedin_url,'skills': 'include'},
